@@ -4,7 +4,7 @@ from PIL import Image
 from users.models import User
 
 class PersonalDetails(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, null=True)
     last_name = models.CharField(max_length=30, null=True)
@@ -19,7 +19,7 @@ class PersonalDetails(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class AddressDetails(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     current_address = models.CharField(max_length=100, null=True)
@@ -32,7 +32,7 @@ class AddressDetails(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class BankDetails(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     account_number = models.IntegerField(null=True)
@@ -53,7 +53,7 @@ class LoanApplication(models.Model):
         ('rejected', 'Rejected'),
     )
 
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reason = models.CharField(max_length=300, null=True)
     proposal_amt = models.IntegerField(null=True)
