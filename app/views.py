@@ -14,19 +14,22 @@ def register_user(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         personal_detail_form = PersonalDetailForm(request.POST)
-        print(f"\n\n User form: {user_form.is_valid()} Personal detail form: {personal_detail_form.is_valid()} \n\n")
+
         if user_form.is_valid() and personal_detail_form.is_valid():
-            user = user_form.save()
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password1'])
+            user.save()
             my_user = User.objects.get(phone=user.phone)
 
             if my_user is None:
-                    return HttpResponse("<h1>User not found</h1>")
+                    messages.error(request, "Error Creating Account, please try again later.")
+                    return redirect('register')
 
             personal_detail = personal_detail_form.save(commit=False)
             personal_detail.user = my_user
             personal_detail.save()
-            return HttpResponse("<h1>User created successfully</h1>")
-        print(user_form.cleaned_data)
+            messages.success(request, "Account created successfully")
+            return redirect('login')
     else:
         user_form = UserForm()
         personal_detail_form = PersonalDetailForm()
