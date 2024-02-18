@@ -3,6 +3,7 @@ from .views import (register_user,
                     login_user, 
                     changePassword, 
                     address, 
+                    register_com,
                     bankDetail, 
                     forgot_password, 
                     logout_user,
@@ -17,4 +18,5 @@ urlpatterns = [
     path("changepassword/",changePassword, name="changepassword"),
     path("address/",address, name="address"),
     path("bank/",bankDetail, name="bank"),
+    path("registercom/", register_com, name="registerCom"),
 ]

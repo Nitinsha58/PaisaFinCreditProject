@@ -1,11 +1,94 @@
 {% extends 'base.html'  %}
-
+{% load static %}
 {% block content %}
-    <div id="main" class="flex-1 bg-blue-200">
-        <div class=" relative shadow-md px-4 py-2 bg-white z-101">
-            <div class="flex justify-between lg:mx-20 xl:mx-36">
-                <h1>Home Page</h1>
+<main class="relative flex flex-col sm:items-end ">
+    <div class="mx-4 lg:mx-20 xl:mx-56 flex relative z-20 items-center transition-all duration-300">
+        <div class=" justify-between flex relative py-4 md:py-16 flex-col-reverse sm:flex-row sm:items-center lg:items-start">
+            <div class="sm:w-2/3 lg:w-3/5 flex flex-col relative z-20 lg:mt-12">
+                <span class="w-24 h-2 800 mb-5">
+                </span>
+                <h1 class="font-bebas-neue uppercase text-2xl sm:text-3xl md:5xl lg:text-6xl font-bold flex flex-col leading-none text-gray-800">
+                    Small Business Loans For Daily Expenses.
+                </h1>
+                <p class="text-xs font-light sm:text-base opacity-60 mt-8 max-w-xl">
+                    Dimension of reality that makes change possible and understandable. An indefinite and homogeneous environment in which natural events and human existence take place.
+                </p>
+
+                <div class="flex mt-8 max-w-xs justify-between">
+                    <a href="{% url 'register' %}" class="uppercase py-3 px-4 min-w-44 flex justify-center items-center bg-gray-950 border-2 border-transparent text-white text-nowrap mr-4 hover:-translate-y-1 hover:shadow-sm transition-all duration-300">
+                        Apply Now
+                    </a>
+                    <a href="#" class="uppercase py-2 px-4 flex items-center border-2 border-gray-900 text-gray-900 border-opacity-0 text-nowrap hover:border-opacity-100 transition-all duration-300 ">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="sm:block sm:w-2/3 lg:w-3/5 relative pt-0 p-4">
+                <img src="{% static 'images/hero-image.jpg' %}" class=" object-contain w-full max-w-md md:max-w-xl m-auto"/>
             </div>
         </div>
     </div>
+    <div class="w-full bg-blue-100 bg-opacity-55 flex relative z-20 items-center transition-all duration-300 justify-center flex-col py-4 md:py-16">
+        <h1 class="font-semibold text-2xl sm:text-4xl mt-4 text-center">Benefits of using a Personal Loan</h1>
+        <div class=" flex min-h-72 justify-between py-4 flex-col w-full p-4 sm:p-0 lg:w-fit lg:flex-row gap-4 lg:gap-8 m-4 items-center ">
+            <div class="relative flex flex-col text-gray-700 w-full bg-white shadow-md bg-clip-border rounded-xl max-w-96">
+                <div class="p-6">
+                  <img src="{% static 'images/document.png' %}" alt="" class="w-12 h-12 mb-4 text-gray-900" >
+                  <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                    Minimal <br>Documentation
+                  </h5>
+                  <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+                    Personal loans require minimal documentation, streamlining the application process and reducing paperwork.
+                  </p>
+                </div>
+            </div> 
+            <div class="relative flex flex-col text-gray-700 w-full bg-white shadow-md bg-clip-border rounded-xl max-w-96">
+                <div class="p-6">
+                  <img src="{% static 'images/home.png' %}" alt="" class="w-12 h-12 mb-4 text-gray-900" >
+                  <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                    Fixed Interest <br>Rates
+                  </h5>
+                  <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+                    Benefit from stable and predictable interest rates, ensuring consistency in your monthly payments.
+                  </p>
+                </div>
+            </div> 
+            <div class="relative flex flex-col text-gray-700 w-full bg-white shadow-md bg-clip-border rounded-xl max-w-96">
+                <div class="p-6">
+                  <img src="{% static 'images/collateral.png' %}" alt="" class="w-12 h-12 mb-4 text-gray-900" >
+                  <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                    No Collateral <br>required
+                  </h5>
+                  <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+                    Secure a personal loan without the need for collateral, making it easier for you to access funds.
+                  </p>
+                </div>
+            </div> 
+        </div>
+    </div>
+</main>
+
+<div class="w-full flex relative z-20 items-center transition-all duration-300 justify-center flex-col py-4">
+    <div class="container flex w-full p-4 sm:p-0 md:py-16 lg:w-fit flex-col sm:flex-row lg:flex-rowitems-center h-full gap-4 md:items-center">
+        <div class="sm:block sm:w-1/2 relative h-full w-full">
+            <img src="{% static 'images/about-us.avif' %}" class=" object-cover w-full h-full max-w-md md:max-w-xl m-auto"/>
+        </div>
+
+        <div class="bg-cover bg-center w-full sm:w-1/2">
+            <div class="flex flex-col justify-center">
+                <h1 class="text-4xl font-bold">About Our Company</h1>
+                <h2 class="text-2xl mt-2">Know Who We Are</h2>
+                <p class="mt-4 font-medium">
+                    Leading company in this field, We provide specific solutions for every customers.
+                </p>
+                <p class="mt-4 font-light opacity-70">
+                    We have built enviable reputation in consumer goods, heavy industry, high-tech, manufacturing, medical, recreational vehicle transportation works sectors; multidisciplinary team of engineering and experts who loves who pursues desires to obtain pain of itself.
+                    Who loves or pursues or desires to obtain pain of itself, but because occasionally circumstances occur.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
 {% endblock content %}

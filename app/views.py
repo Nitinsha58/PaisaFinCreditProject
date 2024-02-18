@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .forms import UserForm, PersonalDetailForm
-from users.models import User
+from .forms import UserForm, PersonalDetailForm , AddressDetailForm , BankDetailForm , PersonalDetailComForm
+from users.models import User 
+from .models import PersonalDetails , BankDetails , AddressDetails
 import random
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -34,6 +35,39 @@ def register_user(request):
         user_form = UserForm()
         personal_detail_form = PersonalDetailForm()
     return render(request, 'app/registration/register.html', {'user_form': user_form, 'personal_detail_form': personal_detail_form})
+
+
+def register_com(request):
+    user = request.user
+    user_detail = PersonalDetails.objects.filter(user=user.id).first() 
+    personal_details_form = PersonalDetailComForm(request.POST or None, instance=user_detail)
+    
+    if request.method == 'POST':
+        
+        print(personal_details_form.is_valid())
+        print(request)
+        print(personal_details_form.errors)
+        if personal_details_form.is_valid():
+            
+            personal_detail = personal_details_form.save(commit=False)
+            personal_detail.user = user
+            
+            personal_detail.save()
+            return redirect('address')
+        else:
+            print("form is not valid")
+    else:
+        personal_details_form = PersonalDetailComForm(request.POST or None, instance=user_detail)
+
+    context = {
+    'personal_details_form': personal_details_form,
+    "first_name": user_detail.first_name if user_detail else '',
+    'last_name': user_detail.last_name if user_detail else '',
+    }
+
+
+    
+    return render(request, 'app/registration/registerCom.html', context)
 
 def login_user(request):
     error = None
@@ -79,12 +113,49 @@ def changePassword(request):
     return render(request, 'app/registration/changePassword.html')
 
 def address(request):
-    return render(request, 'app/registration/address.html')
+    address_form = AddressDetailForm()  
 
+    if request.method == "POST":
+        address_form = AddressDetailForm(request.POST)  
+        print(address_form.errors) 
+
+        if address_form.is_valid(): 
+            user = request.user  
+            if user is not None:
+                personal_detail = PersonalDetails.objects.get(user=user)  
+            else:
+                return HttpResponse("User not found")
+
+            address_instance = address_form.save(commit=False)  
+            address_instance.user = user 
+            address_instance.save()  
+
+            messages.success(request, "Address details added successfully")
+            return redirect('bank')  
+
+    context = {
+        "address_form": address_form,  
+    }
+    return render(request, 'app/registration/address.html', context)  
+    
 def bankDetail(request):
-    return render(request, 'app/registration/bank.html')
+    
 
-
-
+    bank_form = BankDetailForm(request.POST or None)
+    print(bank_form.errors) 
+    if request.method == "POST":
+        if bank_form.is_valid():
+            user = request.user  
+            personal_detail = PersonalDetails.objects.get(user=request.user)
+            bank_form.instance.user = request.user
+            bank_form.instance.user = user 
+            bank_form.save()
+            messages.success(request, "Bank details added successfully")
+            return redirect('home')  
+    
+    context = {
+        "bank_form": bank_form,
+    }
+    return render(request, 'app/registration/bank.html', context)
 
 

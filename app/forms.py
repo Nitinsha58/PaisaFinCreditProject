@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 from .models import User
-from .models import PersonalDetails
+from .models import PersonalDetails , BankDetails , AddressDetails
 
 class UserForm(forms.ModelForm):
 
@@ -86,3 +86,209 @@ class PersonalDetailForm(forms.ModelForm):
         model = PersonalDetails
         fields = ['first_name', 'last_name']
 
+
+class PersonalDetailComForm(forms.ModelForm):
+    first_name = forms.CharField(
+        label='First Name',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'first_name',
+            'required': 'true',
+            'type': 'text',
+            
+        })
+    )
+    last_name = forms.CharField(
+        label='Last Name',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+    pan_number = forms.CharField(
+        label='PAN Number',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'pan_number',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+    pin_code = forms.IntegerField(
+        label='PIN Code',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'pin_code',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+    state = forms.CharField(
+        label='State',
+        widget=forms.TextInput(attrs={
+           'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'state',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+    city = forms.CharField(
+        label='City',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'city',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+    address = forms.CharField(
+        label='Address',
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'address',
+            'required': 'true',
+            'type': 'text',
+
+        })
+    )
+    remark = forms.CharField(
+        label='Remark',
+        required=False, 
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Enter any remarks',
+            'class': 'form-control',
+        })
+    )
+
+    class Meta:
+        model = PersonalDetails
+        fields = ['first_name', 'last_name', 'pan_number', 'pin_code', 'state', 'city', 'address']
+
+class BankDetailForm(forms.ModelForm):
+
+
+    account_number = forms.CharField(
+        label=_('Account Number'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+
+    account_holder_name = forms.CharField(
+        label=_('Account Holder Name'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+    ifsc_code = forms.CharField(
+        label=_('IFSC Code'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+    branch = forms.CharField(
+        label=_('Branch Name'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+
+    check_pic = forms.CharField(
+        label=_('Picture Of Check'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'file',
+        })
+    )
+
+    class Meta:
+        model = BankDetails
+        fields = ['account_number', 'account_holder_name','ifsc_code', 'check_pic']
+
+class AddressDetailForm(forms.ModelForm):
+    current_address = forms.CharField(
+        label=_('Current Address'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+
+    current_address_Proof = forms.CharField(
+        label=_('Current Address Proof'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'file',
+        })
+    )
+
+
+    permanent_address = forms.CharField(
+        label=_('Permanent Address'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'text',
+        })
+    )
+
+
+    permanent_address_Proof = forms.CharField(
+        label=_('Permanent Address Proof'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _(''),
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'last_name',
+            'required': 'true',
+            'type': 'file',
+        })
+    )
+
+    class Meta:
+        model = AddressDetails  
+        fields = ['current_address', 'current_address_Proof', 'permanent_address', 'permanent_address_Proof']
+
+
+
+    

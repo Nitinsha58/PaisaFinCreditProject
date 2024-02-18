@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="h-svh ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col mx-auto h-full max-w-[1920px] relative">
+    
+    <header class=" relative px-4 bg-white z-101">
+        <nav class="flex justify-between px-12 py-4 my-2 lg:mx-20 xl:mx-36 bg-gray-900 text-white rounded-lg">
+            <div class="w-36 flex items-center">
+                <img class="" src="/static/images/Logo-w.svg" alt="LOGO" srcset="">
+            </div>
+
+            <div class="flex items-center">
+                <p>Vivek</p>
+                <div class="flex items ml-2 relative">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500 absolute right-1 border"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="navLinks" class="duration-300 md:hidden absolute w-2/3 h-full bg-white flex gap-8 left-[-100%] p-5 z-50">
+        <ul class="flex flex-col gap-4">
+            <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Home</a></li>
+            <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">About</a></li>
+            <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Contact</a></li>
+            <li class="max-w-fit md:pr-0 py-2 text-white bg-black no-underline rounded-xl px-5">
+                <a href="#">Apply Now</a>
+            </li>
+            <li class="max-w-fit md:pr-0 py-2 text-white bg-blue-500 no-underline rounded-xl px-5">
+                <a href="#">Login</a>
+            </li>
+            <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function onMenuToggle() {
+            const navlinks = document.querySelector("#navLinks");
+            navlinks.classList.toggle("left-[0%]");
+
+            const menu = document.querySelector("#menu")
+            const cross = document.querySelector("#cross")
+
+            menu.classList.toggle("hidden")
+            cross.classList.toggle("hidden")
+        }
+    </script>
+
+
+</body>
+</html> 
