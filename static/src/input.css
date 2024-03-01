@@ -23,9 +23,7 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: none;
   -webkit-text-fill-color: initial;
-  transition: background-color 5000s ease-in-out 0s;
 }
-
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

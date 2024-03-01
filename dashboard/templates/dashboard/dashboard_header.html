@@ -1,0 +1,45 @@
+{% load static %}
+
+<header class=" relative px-4 py-2 sm:bg-transparent z-101 bg-gray-900 sm:bg-none">
+    <nav class="flex justify-between sm:px-12 sm:py-4 sm:my-2 lg:mx-20 xl:mx-24 bg-gray-900 text-white sm:rounded-lg">
+        <a href="{% url 'home' %}" class="w-36 flex items-center">
+            <img class="" src="{% static 'images/Logo-w.svg' %}" alt="LOGO" srcset="">
+        </a>
+        <div class="flex items-center">
+            <p class="py-2 px-4 bg-white bg-opacity-5 rounded-lg cursor-pointer select-none" onclick="onMenuToggle()">
+                Vivek</p>
+            <div class="flex items ml-2 relative">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500 absolute right-1 border"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd"
+                        d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="flex items ml-2 sm:hidden cursor-pointer" onclick="onMenuToggle()">
+                <svg id="menu" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+                <svg id="cross" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 hidden">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+    function onMenuToggle() {
+        const navlinks = document.querySelector("#navLinks");
+        navlinks.classList.toggle("left-[0%]");
+
+        const menu = document.querySelector("#menu")
+        const cross = document.querySelector("#cross")
+
+        menu.classList.toggle("hidden")
+        cross.classList.toggle("hidden")
+    }
+</script>

@@ -6,6 +6,8 @@ from django.urls import path, include
 urlpatterns = (
     [
         path("", include("app.urls")),
+        path("dash/",include("admin.urls")),
+        path("dashboard/", include("dashboard.urls"))
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,7 +7,7 @@ from .views import (register_user,
                     bankDetail, 
                     forgot_password, 
                     logout_user,
-                    index)
+                    index,)
 
 urlpatterns = [
     path("", index, name="home"),

@@ -254,7 +254,7 @@ class AddressDetailForm(forms.ModelForm):
         label=_('Current Address Proof'),
         widget=forms.TextInput(attrs={
             'placeholder': _(''),
-            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent  appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
             'id': 'last_name',
             'required': 'true',
             'type': 'file',
@@ -278,7 +278,7 @@ class AddressDetailForm(forms.ModelForm):
         label=_('Permanent Address Proof'),
         widget=forms.TextInput(attrs={
             'placeholder': _(''),
-            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent  appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
             'id': 'last_name',
             'required': 'true',
             'type': 'file',
