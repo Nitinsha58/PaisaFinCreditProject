@@ -11,14 +11,49 @@
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-md">
             <div class="m-16">
                 <h2 class="text-2xl font-bold text-center">Paisa FinCredit India</h2>
-                <p class="text-sm text-center mb-4"></p>
-                <form class="flex flex-col space-y-4" method="POST" action='.'>
-                    {% csrf_token %}
+                <p class="text-sm text-center mb-4">Enter your correct bank details below</p>
+                <form class="flex flex-col space-y-4" enctype='multipart/form-data' method="POST" action=''>
 
-                    {{ bank_form }}
-                
-                
-                
+                    {% csrf_token %}
+                    <div class="relative">
+                        {{ bank_form.account_number }}
+                        <label for="account_number"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Account Number</label>
+                        {% if bank_form.account_number.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ bank_form.account_number.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="relative">
+                        {{ bank_form.account_holder_name }}
+                        <label for="account_holder_name"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Account Holder Name</label>
+                        {% if bank_form.account_holder_name.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ bank_form.account_holder_name.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="relative">
+                        {{ bank_form.ifsc_code }}
+                        <label for="ifsc_code"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">IFSC Code</label>
+                        {% if bank_form.ifsc_code.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ bank_form.ifsc_code.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="relative">
+                        {{ bank_form.branch }}
+                        <label for="branch"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Branch</label>
+                        {% if bank_form.branch.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ bank_form.branch.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="relative">
+                        {{ bank_form.check_image }}
+                        <p class="text-sm px-2.5 mb-2">Check Image</p>
+                        {% if bank_form.branch.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ bank_form.branch.errors }}</p>
+                        {% endif %}
+                    </div>
                 <button type="submit" class="w-full px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-500">SAVE DETAILS</button>
                 </form>
                 
@@ -27,20 +62,4 @@
     </div>
 </div>
 
-<script>
-    function showHidePass() {
-        const showPassword = document.querySelector("#show-password");
-        const hidePassword = document.querySelector("#hide-password");
-        const password = document.querySelector("#password");
-
-        if (password.type === "password") {
-            password.type = "text";
-        } else {
-            password.type = "password";
-        }
-
-        showPassword.classList.toggle("hidden")
-        hidePassword.classList.toggle("hidden")
-    }
-</script>
 {% endblock content %}

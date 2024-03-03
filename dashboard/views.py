@@ -32,6 +32,8 @@ def update_personal_details(request):
         personal_details = PersonalDetails.objects.filter(user=user.id).first()
         personal_form = PersonalDetailForm(request.POST, instance=personal_details)
         if personal_form.is_valid():
+            personal_details = personal_form.save(commit=False)
+            personal_details.user = user
             personal_form.save()
             messages.success(request, "Personal Details Updated Successfully")
         else:

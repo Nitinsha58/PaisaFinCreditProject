@@ -9,105 +9,95 @@
 
     <div class="form-container md:w-1/2 flex items-center z-0">
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-md">
-            <div class="h-full md:h-auto mx-6 my-8 md:m-16">
+            <div class="h-full md:h-auto mx-6 my-4 md:mx-16">
                 <h2 class="text-2xl font-bold text-center">Paisa FinCredit India</h2>
                 <p class="text-sm text-center mb-4">Updating user details will receive a privacy audit.</p>
                 {% if personal_details_form.errors %}
-                    <ul>
+                <ul>
                     {% for field in personal_details_form %}
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
                     {% endfor %}
-                    </ul>
+                    {% endfor %}
+                </ul>
                 {% endif %}
-                <form class="flex flex-col space-y-4" method="post" >
+                <form class="flex flex-col space-y-4" method="post">
                     {% csrf_token %}
-                    {{ user_form.non_field_errors }}
                     {{ personal_details_form.non_field_errors }}
                     <div class="relative">
                         {{ personal_details_form.first_name }}
-                        
-                        <label for="first_name" class="absolute text-sm  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">First Name</label>
+
+                        <label for="first_name"
+                            class="absolute text-sm  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">First
+                            Name</label>
                         {% if personal_details_form.first_name.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.first_name.errors }}</p>
-                        {% endif %}                        
-                        
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.first_name.errors }}</p>
+                        {% endif %}
+
                     </div>
                     <div class="relative">
                         {{ personal_details_form.last_name }}
-                        <label for="last_name" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Last Name</label>
+                        <label for="last_name"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Last
+                            Name</label>
                         {% if personal_details_form.last_name.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.last_name.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.last_name.errors }}</p>
                         {% endif %}
                     </div>
 
                     <div class="relative">
                         {{ personal_details_form.pan_number }}
-                        <label for="pan_number" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pan Number</label>
+                        <label for="pan_number"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pan
+                            Number</label>
                         {% if personal_details_form.pan_number.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.pan_number.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.pan_number.errors }}</p>
                         {% endif %}
                     </div>
 
                     <div class="relative">
                         {{ personal_details_form.pin_code }}
-                        <label for="pin_code" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pin Code</label>
+                        <label for="pin_code"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pin
+                            Code</label>
                         {% if personal_details_form.pin_code.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.pin_code.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.pin_code.errors }}</p>
                         {% endif %}
                     </div>
 
                     <div class="relative">
                         {{ personal_details_form.state }}
-                        <label for="state" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">State</label>
+                        <label for="state"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">State</label>
                         {% if personal_details_form.state.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.state.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.state.errors }}</p>
                         {% endif %}
                     </div>
 
                     <div class="relative">
                         {{ personal_details_form.city }}
-                        <label for="city" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">City</label>
+                        <label for="city"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">City</label>
                         {% if personal_details_form.city.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.city.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.city.errors }}</p>
                         {% endif %}
                     </div>
 
                     <div class="relative">
                         {{ personal_details_form.address }}
-                        <label for="address" class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Address</label>
+                        <label for="address"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Address</label>
                         {% if personal_details_form.address.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.address.errors }}</p>
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ personal_details_form.address.errors }}</p>
                         {% endif %}
                     </div>
-                
-
-                
-                
-                
-                <button type="submit" class="w-full px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-500">REGISTER</button>
+                    <button type="submit"
+                        class="w-full px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-500">REGISTER</button>
                 </form>
-                <p class="text-sm text-center mt-4">Already Applied? <a href="{% url 'login' %}" class="text-blue-500 font-medium">Sign In</a></p>
+                <p class="text-sm text-center mt-4"><a href="{% url 'dashboard-home' %}"
+                        class="text-gray-200 font-medium">Skip</a></p>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    function showHidePass() {
-        const showPassword = document.querySelector("#show-password");
-        const hidePassword = document.querySelector("#hide-password");
-        const password = document.querySelector("#password");
-
-        if (password.type === "password") {
-            password.type = "text";
-        } else {
-            password.type = "password";
-        }
-
-        showPassword.classList.toggle("hidden")
-        hidePassword.classList.toggle("hidden")
-    }
-</script>
 {% endblock content %}

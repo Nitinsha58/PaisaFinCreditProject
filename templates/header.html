@@ -2,19 +2,24 @@
 <header class=" relative shadow-md px-4 py-2 bg-white z-101">
     <nav class="flex justify-between lg:mx-20 xl:mx-36">
         <div class="w-36 flex items-center">
-            <img class="" src="{% static 'images/Logo.svg' %}" alt="LOGO" srcset="">
+            <a href="{% url 'home' %}">
+                <img class="" src="{% static 'images/Logo.svg' %}" alt="LOGO" srcset="">
+            </a>
         </div>
         <div class="flex items-center gap-3">
             <div class="hidden md:flex duration-300 md:static gap-4 top-[100%] left-[-100%] md:py-0 p-5 md:p-0">
                 <ul class="flex md:flex-row flex-col md:items-center md:gap-[2vw] gap-8">
-                    <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Home</a></li>
-                    <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">About</a></li>
+                    <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="{% url 'home' %}">Home</a></li>
+                    <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#about-us">About</a></li>
                     <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Contact</a></li>
                     {% if request.user.is_authenticated %}
 
                     {% if request.user.is_superuser %}
-                    <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg mx-2 my-3">
+                    <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg my-3">
                         <a href="">Admin</a>
+                    </li>
+                    <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg my-3">
+                        <a href="{% url 'dashboard-home' %}">Dashboard</a>
                     </li>
                     {% else %}
                     <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg mx-2 my-3">
@@ -29,7 +34,7 @@
                         <a href="{% url 'register' %}">Apply Now</a>
                     </li>
 
-                    <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg mx-3 my-3">
+                    <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg my-3">
                         <a href="{% url 'login' %}">Login</a>
                     </li>
                     {% endif %}
