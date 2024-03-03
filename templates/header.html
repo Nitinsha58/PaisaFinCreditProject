@@ -38,7 +38,6 @@
                         <a href="{% url 'login' %}">Login</a>
                     </li>
                     {% endif %}
-
                 </ul>
             </div>
             <div class="flex items-center gap-2">
@@ -61,16 +60,37 @@
 
 <div id="navLinks" class="duration-300 md:hidden absolute w-2/3 h-full bg-white flex gap-8 left-[-100%] p-5 z-50">
     <ul class="flex flex-col gap-4">
-        <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Home</a></li>
-        <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">About</a></li>
+        <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="{% url 'home' %}">Home</a></li>
+        <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#about-us">About</a></li>
         <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Contact</a></li>
-        <li class="max-w-fit md:pr-0 py-2 text-white bg-black no-underline rounded-xl px-5">
-            <a href="#">Apply Now</a>
+        {% if request.user.is_superuser %}
+
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-blue-500 no-underline rounded-xl px-5">
+            <a href="">Admin</a>
         </li>
         <li class="max-w-fit md:pr-0 py-2 text-white bg-blue-500 no-underline rounded-xl px-5">
-            <a href="#">Login</a>
+            <a href="{% url 'dashboard-home' %}">Dashboard</a>
         </li>
-        <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#">Contact</a></li>
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-red-500 no-underline rounded-xl px-5">
+            <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% elif request.user.is_authenticated %}
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-blue-500 no-underline rounded-xl px-5">
+            <a href="{% url 'dashboard-home' %}">Dashboard</a>
+        </li>
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-red-500 no-underline rounded-xl px-5">
+            <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-black no-underline rounded-xl px-5">
+            <a href="{% url 'register' %}">Apply Now</a>
+        </li>
+        <li class="max-w-fit md:pr-0 py-2 text-white bg-blue-500 no-underline rounded-xl px-5">
+            <a href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+
+
     </ul>
 </div>
 
