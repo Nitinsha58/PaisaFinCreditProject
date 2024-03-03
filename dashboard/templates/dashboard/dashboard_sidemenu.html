@@ -1,0 +1,60 @@
+{% load static %}
+
+{% url 'dashboard-home' as dashboard_url %}
+{% url 'dashboard-application' as application_url %}
+{% url 'dashboard-offer' as offer_url %}
+{% url 'logout' as logout_url %}
+
+<div id="navLinks"
+    class="h-full absolute sm:relative sm:left-0 left-[-100%] w-fit justify-between transition-all duration-50 bg-gray-900 text-white sm:rounded-lg">
+    <ul class="gap-2 w-full">
+        <li class="w-full" id="menu">
+            <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if dashboard_url == request.path  %}text-blue-400 bg-blue-500{% endif %}  bg-opacity-10"
+                href="{% url 'dashboard-home' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 mr-4 {% if dashboard_url == request.path  %}text-blue-400{% endif %} ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                </svg>
+                <p class="whitespace-nowrap">Personal Details</p>
+            </a>
+        </li>
+        <li class="w-full" id="menu">
+            <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 {% if application_url == request.path  %}text-blue-400 bg-blue-500{% endif %} bg-opacity-10 hover:bg-opacity-10"
+                href="{% url 'dashboard-application' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 mr-4 {% if application_url == request.path  %}text-blue-400 {% endif %} ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                </svg>
+                <p class="whitespace-nowrap ">Applications</p>
+            </a>
+        </li>
+        <li class="w-full" id="menu">
+            <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if offer_url == request.path  %}text-blue-400 bg-blue-500{% endif %} bg-opacity-10 hover:bg-blue-500 hover:bg-opacity-10 "
+                href="{% url 'dashboard-offer' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 mr-4 {% if offer_url == request.path  %}text-blue-400{% endif %} ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                </svg>
+                <p class="whitespace-nowrap ">Offers</p>
+            </a>
+        </li>
+        <li class="w-full" id="menu">
+            <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if logout_url == request.path  %}text-blue-400 bg-blue-500{% endif %} bg-opacity-10 hover:bg-blue-500 hover:bg-opacity-10"
+                href="{% url 'logout' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-8 h-8 mr-4 {% if logout_url == request.path  %}text-blue-400{% endif %} ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                </svg>
+                <p class="whitespace-nowrap ">Logout</p>
+            </a>
+        </li>
+    </ul>
+</div>

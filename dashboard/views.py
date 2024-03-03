@@ -70,3 +70,11 @@ def update_bank_details(request):
         else:
             messages.error(request, "Error Updating Bank Details")
         return redirect('dashboard-home')
+
+@login_required(login_url="login")
+def application(request):
+    return render(request, "dashboard/application.html")
+
+@login_required(login_url="login")
+def offers(request):
+    return render(request, "dashboard/offers.html")

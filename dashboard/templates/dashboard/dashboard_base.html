@@ -15,8 +15,12 @@
         {% include 'dashboard/dashboard_header.html' %}
     {% endblock header %}
 
-    {% block content %}
-    {% endblock content %}
+
+    <div class="relative flex sm:gap-2 lg:mx-20 xl:mx-24 sm:px-4 min-h-screen">
+        {% include 'dashboard/dashboard_sidemenu.html' %}
+        {% block content %}
+        {% endblock content %}
+    </div>
 
     {% block footer %}
     {% endblock footer %}
