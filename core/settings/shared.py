@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "app.apps.AppConfig",
     "users.apps.UsersConfig",
     "dashboard.apps.DashboardConfig",
+    "cadmin",
 ]
 
 MIDDLEWARE = [

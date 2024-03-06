@@ -9,6 +9,7 @@ whitenoise = "*"
 pillow = "*"
 boto3 = "*"
 django-storages = "*"
+twilio = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

@@ -1,0 +1,81 @@
+{% extends 'adminDashboard/dashboard_base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <h1 class="text-2xl font-bold py-4 px-2">Applications</h1>
+
+    <div class="mx-4 ">
+        <div class="py-4 my-5 bg-white rounded-lg">
+            <ul class="flex justify-between text-xl font-medium  text-center ">
+                <li class="w-1/5">Name(34)</li>
+                <li class="w-1/5">Applied Amount</li>
+                <li class="w-1/5">Approved Amount</li>
+                <li class="w-1/5">Date</li>
+                <li class="w-1/5">Status</li>
+            </ul>
+        </div>
+
+        <div class="py-4 my-5 bg-white rounded-lg">
+            <a href="#">
+                <ul class="flex justify-between text-center">
+                    <li class="w-1/5"><a href="#">Nidheer Chaudhary</a></li>
+                    <li class="w-1/5">35000</li>
+                    <li class="w-1/5">24000</li>
+                    <li class="w-1/5">Jan 3, 2024</li>
+                    <li class="w-1/5">Approved</li>
+                </ul>
+        </div>
+
+        <div class="py-4 my-5 bg-white rounded-lg">
+            <a href="#">
+                <ul class="flex justify-between text-center">
+                    <li class="w-1/5"><a href="#">Nidheer Chaudhary</a></li>
+                    <li class="w-1/5">35000</li>
+                    <li class="w-1/5">24000</li>
+                    <li class="w-1/5">Jan 3, 2024</li>
+                    <li class="w-1/5">Approved</li>
+                </ul>
+        </div>
+    </div>
+
+<!-- test area  -->
+<div id="container" >
+    <div id="objects" class="py-4 my-5 bg-white rounded-lg  text-xl font-medium  text-center ">
+      <div class="object">Name(34) </div>
+      <div class="object">Applied Amount</div>
+      <div class="object">Approved Amount</div>
+      <div class="object">Date</div>
+      <div class="object">Status</div>
+      
+    </div>
+
+    <div id="objects" class="py-4 my-5 bg-white rounded-lg text-center">
+      <div class="object">Nidheer Chaudhary</div>
+      <div class="object">35000</div>
+      <div class="object">24000</div>
+      <div class="object">Jan 3, 2024</div>
+      <div class="object">Approved</div>
+
+    </div>
+
+</div>
+    
+
+
+    <div>
+        <ul>
+            {% for user in users %}
+
+                
+                <li><a href="{{ user.id }}">{{ user }}</a></li>
+                    
+                
+            {% endfor %}
+        </ul>
+    </div>
+    
+    
+
+
+{% endblock content %}

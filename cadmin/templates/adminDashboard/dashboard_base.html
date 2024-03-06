@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-svh ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        #container {
+            overflow-x:scroll;
+            overflow-y:hidden;
+            
+            /* Styling */
+            
+            
+        }
+
+        #objects {
+            width: auto;
+            white-space:nowrap; 
+
+            /* Styling */
+            
+        }
+
+        .object {
+            display: inline-block;
+        
+            /* Styling */
+            
+            border: 1px solid white;
+            width: 200px;
+            
+        }
+    </style>
+    
+</head>
+<body class="flex flex-col mx-auto h-full max-w-[1920px] relative">
+    
+    {% include 'notification.html' %}
+
+    {% block header %}
+        {% include 'adminDashboard/dashboard_header.html' %}
+    {% endblock header %}
+
+    
+
+<div class="relative flex sm:gap-2 lg:mx-20 xl:mx-24 sm:px-4 min-h-screen">
+    <div id="navLinks"
+        class="h-full absolute sm:relative sm:left-0 left-[-100%] w-fit justify-between transition-all duration-50 bg-gray-900 text-white sm:rounded-lg  p-2">
+        <ul class="gap-2 w-full">
+            <li class="w-full" id="menu">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md bg-blue-500 bg-opacity-10" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 mr-4 text-blue-400">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                    </svg>
+                    <p class="whitespace-nowrap text-blue-400">DashBoard</p>
+                </a>
+            </li>
+            <li class="w-full" id="menu">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                    </svg>
+                    <p class="whitespace-nowrap ">Pending</p>
+                </a>
+            </li>
+
+
+            <li class="w-full" id="menu">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                    </svg>
+                    <p class="whitespace-nowrap ">Rejected</p>
+                </a>
+            </li>
+
+
+            <li class="w-full" id="menu">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                    </svg>
+                    <p class="whitespace-nowrap ">Approved</p>
+                </a>
+            </li>
+
+
+            <li class="w-full" id="menu">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-8 h-8 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+                    </svg>
+                    <p class="whitespace-nowrap ">Logout</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class=" w-full  rounded-lg">
+        
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    {% block footer %}
+    {% endblock footer %}
+</body>
+</html> 
