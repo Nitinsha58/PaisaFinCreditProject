@@ -1,8 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 from app.models import User
-from app.models import PersonalDetails , BankDetails , AddressDetails
-
+from app.models import PersonalDetails , BankDetails , AddressDetails, LoanApplication
 
 class PersonalDetailForm(forms.ModelForm):
     first_name = forms.CharField(
@@ -180,3 +179,42 @@ class AddressDetailForm(forms.ModelForm):
     class Meta:
         model = AddressDetails  
         fields = ['current_address', 'current_address_proof', 'permanent_address', 'permanent_address_proof']
+
+
+# create form for loan application taking reference from above
+
+class LoanApplicationForm(forms.ModelForm):
+    proposal_amt = forms.IntegerField(
+        label=_('Loan Amount'),
+        widget=forms.TextInput(attrs={
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'proposal_amt',
+            'required': 'true',
+            'type': 'number',
+        })
+    )
+
+    # reason = forms.CharField(
+    #     label=_('Loan Reason'),
+    #     widget=forms.TextInput(attrs={
+    #         'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+    #         'id': 'reason',
+    #         'required': 'true',
+    #         'type': 'text',
+    #     })
+    # )
+
+    reason = forms.CharField(
+        label=_('Loan Reason'),
+        widget=forms.Textarea(attrs={
+            'class': 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer',
+            'id': 'reason',
+            'required': 'true',
+            'type': 'text',
+            'rows': '3',
+        })
+    )
+
+    class Meta:
+        model = LoanApplication
+        fields = ['proposal_amt', 'reason']

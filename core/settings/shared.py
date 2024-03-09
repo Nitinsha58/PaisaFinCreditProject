@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "dashboard.apps.DashboardConfig",
     "cadmin",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,7 @@ from .views import (
     update_address_details, 
     update_bank_details,
     application,
+    delete_application,
     offers
     )
 
@@ -15,5 +16,6 @@ urlpatterns = [
     path("update-address-details/", update_address_details, name="update-address-details"),
     path("update-bank-details/", update_bank_details, name="update-bank-details"),
     path("application/", application, name="dashboard-application"),
+    path("delete-application/<int:id>", delete_application, name="delete-application"),
     path("offers/", offers, name="dashboard-offer"),
 ]
