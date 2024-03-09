@@ -4,7 +4,7 @@
 {% load humanize %}
 
 
-<div style="z-index: 3" class="relative w-full p-4 overflow-x-scroll mt-4 sm:mt-0">
+<div style="z-index: 3" class="relative w-full m-2 overflow-x-scroll sm:mt-0">
     <div class="absolute right-4 top-0 z-10">
         <div class="flex items-center justify-end mb-4">
             <p id="create-application"
@@ -13,10 +13,9 @@
             </p>
         </div>
     </div>
-    <div class="relative w-full overflow-x-scroll sm:rounded-lg mt-12">
-        <table
-            class="border-collapse border-spacing-4 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div class="relative w-full overflow-x-scroll sm:rounded-lg rounded-md mt-12">
+        <table class="border-collapse border-spacing-4 w-full text-sm text-left rtl:text-right text-gray-400">
+            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Application
@@ -25,7 +24,7 @@
                         Date
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Proposal
+                        Proposal Amount
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Status
@@ -38,10 +37,8 @@
             <tbody class="border-spacing-4">
                 {% if loan_applications %}
                 {% for loan in loan_applications %}
-                <tr
-                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                    <th scope="row"
-                        class="px-6 py-4 max-w-48 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate">
+                <tr class="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700">
+                    <th scope="row" class="px-6 py-4 max-w-48 font-medium  whitespace-nowraptext-white truncate">
                         {{loan.reason}}
                     </th>
                     <td class="px-6 py-4 text-nowrap">
@@ -78,7 +75,7 @@
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="4" class="text-center py-4">No loan applications found</td>
+                    <td colspan="5" class="text-center py-4">No loan applications</td>
                 </tr>
                 {% endif %}
             </tbody>
