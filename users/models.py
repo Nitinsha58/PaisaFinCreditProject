@@ -8,6 +8,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
     otp = models.CharField(null=True, blank=True, max_length=6)
+    token = models.CharField(null=True, blank=True, max_length=65)
     terms_accepted = models.BooleanField(default=False, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
