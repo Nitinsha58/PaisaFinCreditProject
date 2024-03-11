@@ -3,8 +3,53 @@
 {% block content %}
 
 
-    
+        <div class="p-4 bg-white rounded-lg">
+            <form action="nego/{{ loanApplication.id }}" method="post">
+                {% csrf_token %}
+                
+                <div class="flex flex-col gap-4 text-lg">
+                    <div class="flex flex-col gap-2">
+                        <label for="reason">Reason</label>
+                        {{loanApplicationForm.reason}}
+                        {% if loanApplicationForm.reason.errors %}
+                        {% for error in loanApplicationForm.reason.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
 
+                    <div class="flex flex-col gap-2">
+                        <label for="proposal_amt">Proposed Amount</label>
+                        {{loanApplicationForm.proposal_amt}}
+                        {% if loanApplicationForm.proposal_amt.errors %}
+                        {% for error in loanApplicationForm.proposal_amt.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="approved_amt">Approved Amount</label>
+                        {{loanApplicationForm.approved_amt}}
+                        {% if loanApplicationForm.approved_amt.errors %}
+                        {% for error in loanApplicationForm.approved_amt.errors %}
+                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </div>
+               
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
+                </div>
+               
+                
+            </form>
+        </div>
+
+       
         <div class=" grid grid-cols-1 xl:grid-cols-2 sm:gap-4">
                 <div class="p-4 bg-white rounded-lg">
                     <h2 class="text-3xl font-medium">Personal Details</h2>
@@ -14,7 +59,7 @@
                             
 
                         
-                            <form action="personremark/{{ user.id }}" method="POST" class="flex flex-col gap-4">
+                            <form action="personremark/{{ user.id }}/{{ loadForm_id }}" method="POST" class="flex flex-col gap-4">
                                 {% csrf_token %}
                                 {{ personal_form.non_field_errors }}
                                 {{ personal_form.non_field_errors }}
@@ -114,7 +159,7 @@
                     <h2 class="text-3xl font-medium">Address Details</h2>
                     <div class="">
                         <div class="form-container sm:p-4">
-                            <form action="addressremark/{{user.id}}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                            <form action="addressremark/{{user.id}}/{{ loadForm_id }}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
                                 {% csrf_token %}
                                 {{ address_form.non_field_errors }}
                                 {{ address_form.non_field_errors }}
@@ -202,7 +247,7 @@
                     <h2 class="text-3xl font-medium">Bank Details</h2>
                     <div class="">
                         <div class="form-container sm:p-4">
-                            <form action="bankremark/{{user.id}}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                            <form action="bankremark/{{user.id}}/{{ loadForm_id }}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
                                 {% csrf_token %}
                                 {{ bank_form.non_field_errors }}
                                 {{ bank_form.non_field_errors }}
@@ -285,7 +330,7 @@
                                     </div>
 
                                     <div class="flex justify-end">
-                                        <button
+                                        <button 
                                             class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
                                     </div>
                                 </div>

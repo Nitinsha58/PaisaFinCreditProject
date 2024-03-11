@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 from app.models import User
-from app.models import PersonalDetails , BankDetails , AddressDetails
+from app.models import PersonalDetails , BankDetails , AddressDetails, LoanApplication
 
 
 class PersonalDetailForm(forms.ModelForm):
@@ -171,36 +171,24 @@ class AddressDetailForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'class': 'p-2 border border-gray-300 rounded-md',
             'id': 'current_address',
-            'required': 'true',
+            'required': 'false',
             'type': 'text',
         })
     )
 
-    current_address_proof = forms.ImageField(
-        label=_('Current Address Proof'),
-        widget=forms.FileInput(attrs={
-            'class': 'p-2 border border-gray-300 rounded-md',
-            'id': 'current_address_proof',
-        })
-    )
+
 
     permanent_address = forms.CharField(
         label=_('Permanent Address'),
         widget=forms.TextInput(attrs={
             'class': 'p-2 border border-gray-300 rounded-md',
             'id': 'permanent_address',
-            'required': 'true',
+            'required': 'false',
             'type': 'text',
         })
     )
 
-    permanent_address_proof = forms.ImageField(
-        label=_('Permanent Address Proof'),
-        widget=forms.FileInput(attrs={
-            'class': 'p-2 border border-gray-300 rounded-md',
-            'id': 'permanent_address_proof',
-        })
-    )
+
 
     remark = forms.CharField(
         label = "Remark",
@@ -215,5 +203,52 @@ class AddressDetailForm(forms.ModelForm):
     )
     class Meta:
         model = AddressDetails 
-        fields = ['current_address', 'current_address_proof', 'permanent_address','permanent_address_proof', 'remark']
+        fields = ['current_address', 'permanent_address', 'remark']
 
+
+
+class LoanApplicationForm(forms.ModelForm):
+    # status = forms.ChoiceField(
+    #     label='Status',
+    #     choices=LoanApplication.USER_STATUS,
+    #     widget=forms.Select(attrs={
+    #         'class': 'p-2 border border-gray-300 rounded-md',
+    #         'id': 'status',
+    #         'required': True,
+    #     })
+    # )
+    forms.CharField(
+        label='Reason',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Reason',
+            'class': 'p-2 border border-gray-300 rounded-md',
+            'id': 'reason',
+            'required': False, 
+            
+            'type': 'text',
+        })
+    )
+    proposal_amt = forms.IntegerField(
+        label='Approved Amount',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Enter approved loan amount',
+            'class': 'p-2 border border-gray-300 rounded-md',
+            'id': 'approved_amt',
+            'required': False, 
+            'type': 'number',
+        })
+    )
+    approved_amt = forms.IntegerField(
+        label='Approved Amount',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Enter approved loan amount',
+            'class': 'p-2 border border-gray-300 rounded-md',
+            'id': 'approved_amt',
+            'required': True, 
+            'type': 'number',
+        })
+    )
+
+    class Meta:
+        model = LoanApplication
+        fields = ['reason', 'proposal_amt']
