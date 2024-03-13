@@ -60,3 +60,6 @@ STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+# SMS API KEY
+OTP_AUTHORIZATION_KEY = config.get("OTP_AUTHORIZATION_KEY", None)
