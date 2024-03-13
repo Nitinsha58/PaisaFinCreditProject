@@ -13,6 +13,7 @@ twilio = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.11"
