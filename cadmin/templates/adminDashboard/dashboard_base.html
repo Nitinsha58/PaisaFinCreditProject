@@ -47,14 +47,17 @@
         {% include 'adminDashboard/dashboard_header.html' %}
     {% endblock header %}
 
-    
+    {% url 'cadmin:dbb' as dash_home %}
+    {% url 'cadmin:pendingApplcation' as dash_pending %}
+    {% url 'cadmin:rejectedApplication' as dash_rejected %}
+    {% url 'cadmin:approvedApplication' as dash_approved %}
 
 <div class="relative flex sm:gap-2 lg:mx-20 xl:mx-24 sm:px-4 min-h-screen">
     <div id="navLinks"
         class="h-full absolute sm:relative sm:left-0 left-[-100%] w-fit justify-between transition-all duration-50 bg-gray-900 text-white sm:rounded-lg  p-2">
         <ul class="gap-2 w-full">
             <li class="w-full" id="menu">
-                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md bg-blue-500 bg-opacity-10" href="/dash">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if dash_home == request.path  %} text-blue-400  {% endif %} bg-opacity-10" href="/dash">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-8 h-8 mr-4 text-blue-400">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,7 +67,7 @@
                 </a>
             </li>
             <li class="w-full" id="menu">
-                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="/dash/pending">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if dash_pending == request.path  %} text-blue-400  {% endif %}  hover:bg-blue-500 hover:bg-opacity-10" href="/dash/pending">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-8 h-8 mr-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,7 +79,7 @@
 
 
             <li class="w-full" id="menu">
-                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="/dash/rejected">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if request.path == dash_rejected %}text-blue-400 {% endif %} hover:bg-blue-500 hover:bg-opacity-10" href="/dash/rejected">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-8 h-8 mr-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -88,7 +91,7 @@
 
 
             <li class="w-full" id="menu">
-                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md hover:bg-blue-500 hover:bg-opacity-10" href="/dash/approved">
+                <a class="p-2 sm:p-4 flex items-center m-3 rounded-md {% if request.path == dash_approved %}text-blue-400 {% endif %} hover:bg-blue-500 hover:bg-opacity-10" href="/dash/approved">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-8 h-8 mr-4">
                         <path stroke-linecap="round" stroke-linejoin="round"

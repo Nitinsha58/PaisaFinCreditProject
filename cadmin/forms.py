@@ -251,4 +251,4 @@ class LoanApplicationForm(forms.ModelForm):
 
     class Meta:
         model = LoanApplication
-        fields = ['reason', 'proposal_amt']
+        fields = ['reason', 'proposal_amt','approved_amt']

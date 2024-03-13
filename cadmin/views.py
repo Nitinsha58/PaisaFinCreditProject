@@ -34,10 +34,11 @@ def detail_view(request, id):
     user = User.objects.get(id=userid.id)
     loadForm_id = id 
 
+    print("approved amount = ", loanApplication.approved_amt)
     personal_details = PersonalDetails.objects.filter(user=userid).first()
     address_details = AddressDetails.objects.filter(user=userid).first()
     bank_details = BankDetails.objects.filter(user=userid).first()
-    load_application_details = LoanApplication.objects.filter(user=userid).first()
+    load_application_details = LoanApplication.objects.get(id=id)
     
     personal_form = PersonalDetailForm(instance=personal_details)
     address_form = AddressDetailForm(instance=address_details)

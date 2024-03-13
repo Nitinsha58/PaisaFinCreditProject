@@ -11,6 +11,7 @@ import json, time
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.crypto import get_random_string
 from django.urls import reverse
+from .utilitys import send_otp_to_phone
 
 def index(request):
     return render(request, 'app/index.html')
@@ -106,6 +107,12 @@ def generate_otp(request):
             if user:
                 if (time.time() - user.updated_at.timestamp()) < 60:
                     return JsonResponse({'error': 'You can only request for OTP once in a minute'})
+                response = send_otp_to_phone(phone, otp)
+
+                response = json.loads(response)
+                if response.get('message') and response.get('message')[0] == 'Message sent successfully':
+                    print(response)
+                    return JsonResponse({'error': response.get('error')})
                 user.otp = otp
                 user.save()
                 return JsonResponse({'message': 'OTP sent to your registered phone number'})
