@@ -6,7 +6,9 @@ from .views import (
     update_bank_details,
     application,
     delete_application,
-    offers
+    offers,
+    resendOtp,
+    verify_phone
     )
 
 
@@ -18,4 +20,6 @@ urlpatterns = [
     path("application/", application, name="dashboard-application"),
     path("delete-application/<int:id>", delete_application, name="delete-application"),
     path("offers/", offers, name="dashboard-offer"),
+    path("verify-phone/", verify_phone, name="verify-phone"),
+    path("resend-otp/", resendOtp, name="resend-otp"),
 ]

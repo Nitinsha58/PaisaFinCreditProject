@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import PersonalDetailForm, AddressDetailForm, BankDetailForm, LoanApplicationForm
 from app.models import PersonalDetails, AddressDetails, BankDetails, LoanApplication
 from django.contrib import messages
+import json, time, random
+from django.http import JsonResponse
+from app.utility import send_otp_to_phone
+from users.models import User
 
 # Create your views here.
 
@@ -103,3 +107,44 @@ def offers(request):
         'offers': offers
     }
     return render(request, "dashboard/offers.html", context)
+
+@login_required(login_url="login")
+def resendOtp(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        phone = data.get('phone')
+        otp = ''.join([str(random.randrange(0,10)) for i in range(6)])
+        if 15 >= phone.isdigit() and len(phone) >= 10:
+            user = User.objects.filter(phone=phone).first()
+            if user:
+                if (time.time() - user.updated_at.timestamp()) < 60:
+                    return JsonResponse({'error': 'You can only request for OTP once in a minute'})
+                response = send_otp_to_phone(phone, otp)
+
+                response = json.loads(response)
+                if response.get('message') and response.get('message')[0] == 'Message sent successfully':
+                    print(response)
+                    return JsonResponse({'error': response.get('error')})
+                user.otp = otp
+                user.save()
+                return JsonResponse({'message': 'OTP sent to your registered phone number'})
+        return JsonResponse({'error': 'Invalid phone number'})
+    return JsonResponse({'error': 'Invalid request'})
+
+@login_required(login_url="login")
+def verify_phone(request):
+    if request.method == 'POST':
+        otp = request.POST.getlist('otp')[0]
+        user = User.objects.filter(phone=request.user.phone).first()
+        if user and time.time() - user.updated_at.timestamp() > 300:
+            messages.error(request, "OTP expired, please request for another OTP")
+            return redirect('dashboard-home')
+        if user and user.otp == str(otp):
+            user.is_phone_verified = True
+            user.save()
+            messages.success(request, "Phone number verified successfully")
+            return redirect('dashboard-home')
+        else:
+            messages.error(request, "OTP does not match")
+
+    return redirect("dashboard-home")

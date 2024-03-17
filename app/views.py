@@ -11,7 +11,7 @@ import json, time
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.crypto import get_random_string
 from django.urls import reverse
-from .utilitys import send_otp_to_phone
+from .utility import send_otp_to_phone
 
 def index(request):
     return render(request, 'app/index.html')

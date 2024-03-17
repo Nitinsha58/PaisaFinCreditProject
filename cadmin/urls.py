@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import dashboardBase , detail_view , personal_remark , address_remark , bank_remark , pendingApplications, rejectedApplication, approvedApplication , loanApplicationNego
-app_name = "cadmin"
 urlpatterns = [
     path("", dashboardBase, name="dbb"),
     path("pending", pendingApplications,name="pendingApplcation"),
