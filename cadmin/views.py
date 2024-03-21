@@ -6,7 +6,11 @@ from .forms import PersonalDetailForm, AddressDetailForm, BankDetailForm , LoanA
 from app.models import PersonalDetails, AddressDetails, BankDetails , LoanApplication
 from django.contrib import messages
 from users.models import User 
+from .decorator import check_admin
+
+
 # Create your views here.
+@check_admin
 def dashboardBase(request):
     
     users = User.objects.all()
@@ -15,18 +19,23 @@ def dashboardBase(request):
     
     return render(request,"adminDashboard/dashboard.html",{"users":users, "loanApplications":loanApplications})
 
+@check_admin
 def pendingApplications(request):
     loanApplications = LoanApplication.objects.filter(status="pending")
     return render(request,"adminDashboard/pending.html",{"loanApplications":loanApplications})
 
+    
+@check_admin
 def rejectedApplication(request):
     loanApplications = LoanApplication.objects.filter(status="rejected")
     return render(request,"adminDashboard/rejected.html",{"loanApplications":loanApplications})
 
+@check_admin
 def approvedApplication(request):
     loanApplications = LoanApplication.objects.filter(status="approved")
     return render(request,"adminDashboard/approved.html",{"loanApplications":loanApplications})
 
+@check_admin
 def detail_view(request, id):
     loanApplication = LoanApplication.objects.get(id=id)
     
@@ -72,6 +81,7 @@ def detail_view(request, id):
                                                     'loanApplicationForm':load_application_form,
                                                     'loadForm_id':loadForm_id})
 
+@check_admin
 def loanApplicationNego(request, id):
     if request.method == "POST":
         loanApplication = LoanApplication.objects.get(id = id)
@@ -85,10 +95,10 @@ def loanApplicationNego(request, id):
         else: 
             
             messages.error(request,"Error ")
-    return redirect('cadmin:dbb')
+    return redirect('dbb')
 
 
-
+@check_admin
 def personal_remark(request,id,lid):
     if request.method == "POST":
         user = User.objects.get(id=id)
@@ -106,10 +116,10 @@ def personal_remark(request,id,lid):
             
             messages.error(request,"Error ")
 
-    return redirect('cadmin:dbb')
+    return redirect('dbb')
     
 
-
+@check_admin
 def address_remark(request,id,lid):
     
     if request.method == "POST":
@@ -128,11 +138,11 @@ def address_remark(request,id,lid):
             messages.error(request,"Error ")
             
            
-    return redirect('cadmin:dbb')
+    return redirect('dbb')
 
     
 
-
+@check_admin
 def bank_remark(request, id,lid):
     
     if request.method =="POST":
@@ -148,7 +158,7 @@ def bank_remark(request, id,lid):
             return redirect(reverse('cadmin:details', kwargs={'id': lid}))
         
     
-    return redirect('cadmin:dbb')
+    return redirect('dbb')
     
             
 

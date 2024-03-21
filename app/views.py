@@ -13,7 +13,10 @@ from django.utils.crypto import get_random_string
 from django.urls import reverse
 from .utility import send_otp_to_phone
 
+from .decorator import first_time_register
+
 def index(request):
+    
     return render(request, 'app/index.html')
 
 def register_user(request):
@@ -42,15 +45,16 @@ def register_user(request):
     return render(request, 'app/registration/register.html', {'user_form': user_form, 'personal_detail_form': personal_detail_form})
 
 @login_required(login_url='login')
+@first_time_register
 def register_com(request):
     user = request.user
     user_detail = PersonalDetails.objects.filter(user=user.id).first() 
     personal_details_form = PersonalDetailComForm(request.POST or None, instance=user_detail)
-    
     if request.method == 'POST':
         if personal_details_form.is_valid():
             personal_detail = personal_details_form.save(commit=False)
             personal_detail.user = user
+            personal_detail.first_time = True
             
             personal_detail.save()
             messages.success(request, "Personal details saved successfully")
@@ -70,7 +74,7 @@ def login_user(request):
             user = authenticate(phone=phone, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard-home')
             error = "Incorrect phone number or password "
         else:
             error = "Phone or password cannot be empty"
@@ -148,6 +152,7 @@ def password_reset(request, tk, p):
 
 
 @login_required(login_url='login')
+@first_time_register
 def address(request):
     user = request.user
     address_details = AddressDetails.objects.filter(user=user.id).first()
@@ -158,6 +163,7 @@ def address(request):
         if address_form.is_valid(): 
             address_instance = address_form.save(commit=False)
             address_instance.user = user
+            address_instance.first_time = True
             address_instance.save()
 
             messages.success(request, "Address details added successfully")
@@ -167,6 +173,7 @@ def address(request):
     return render(request, 'app/registration/address.html', context)  
 
 @login_required(login_url='login')
+@first_time_register
 def bankDetail(request):
     user = request.user
     bank_details = BankDetails.objects.filter(user=user.id).first()
@@ -176,6 +183,7 @@ def bankDetail(request):
         if bank_form.is_valid():
             bank_instance = bank_form.save(commit=False)
             bank_instance.user = user
+            bank_instance.first_time = True
             bank_instance.save()
 
             messages.success(request, "Bank details added successfully")

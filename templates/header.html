@@ -16,6 +16,7 @@
 
                     {% if request.user.is_superuser %}
                     <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg my-3">
+                        
                         <a href="{% url 'dbb' %}">Admin</a>
                     </li>
                     <li class="text-white bg-blue-500  no-underline py-2 px-5 rounded-lg my-3">
@@ -58,7 +59,7 @@
     </nav>
 </header>
 
-<div id="navLinks" class="duration-300 md:hidden absolute w-2/3 h-full bg-white flex gap-8 left-[-100%] p-5 z-50">
+<div id="navLinks"  class="duration-300 md:hidden absolute w-2/3 h-full bg-white flex gap-8 left-[-100%] p-5 z-50">
     <ul class="flex flex-col gap-4">
         <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="{% url 'home' %}">Home</a></li>
         <li class="max-w-fit pr-3 md:pr-0 py-1 "><a href="#about-us">About</a></li>

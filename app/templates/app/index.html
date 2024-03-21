@@ -15,9 +15,15 @@
                 </p>
 
                 <div class="flex mt-8 max-w-xs justify-between">
-                    <a href="{% url 'register' %}" class="uppercase py-3 px-4 min-w-44 flex justify-center items-center bg-gray-950 border-2 border-transparent text-white text-nowrap mr-4 hover:-translate-y-1 hover:shadow-sm transition-all duration-300">
-                        Apply Now
-                    </a>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'dashboard-application' %}" class="uppercase py-3 px-4 min-w-44 flex justify-center items-center bg-gray-950 border-2 border-transparent text-white text-nowrap mr-4 hover:-translate-y-1 hover:shadow-sm transition-all duration-300">
+                            Apply Now
+                        </a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="uppercase py-3 px-4 min-w-44 flex justify-center items-center bg-gray-950 border-2 border-transparent text-white text-nowrap mr-4 hover:-translate-y-1 hover:shadow-sm transition-all duration-300">
+                            Apply Now
+                        </a>
+                    {% endif %}
                     <a href="#" class="uppercase py-2 px-4 flex items-center border-2 border-gray-900 text-gray-900 border-opacity-0 text-nowrap hover:border-opacity-100 transition-all duration-300 ">
                         Contact Us
                     </a>

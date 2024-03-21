@@ -14,9 +14,12 @@ class PersonalDetails(models.Model):
     city = models.CharField(max_length=30, null=True)
     address = models.CharField(max_length=100, null=True)
     remark = models.CharField(max_length=100, null=True)
+    first_time = models.BooleanField(null=True, default=False)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
 class AddressDetails(models.Model):
     id = models.AutoField(primary_key=True)
@@ -27,6 +30,7 @@ class AddressDetails(models.Model):
     permanent_address = models.CharField(max_length=100, null=True)
     permanent_address_proof = models.ImageField(upload_to='address_proofs/', null=True, blank=True)
     remark = models.CharField(max_length=100, null=True)
+    first_time = models.BooleanField(null=True, default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -40,6 +44,7 @@ class BankDetails(models.Model):
     branch = models.CharField(max_length=50, null=True)
     check_image = models.ImageField(upload_to='checks/', null=True)
     remark = models.CharField(max_length=100, null=True)
+    first_time = models.BooleanField(null=True, default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

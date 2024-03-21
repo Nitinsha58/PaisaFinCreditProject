@@ -8,10 +8,12 @@ import json, time, random
 from django.http import JsonResponse
 from app.utility import send_otp_to_phone
 from users.models import User
+from app.decorator import first_time_register
 
 # Create your views here.
 
 @login_required(login_url="login")
+# @first_time_register
 def dashboard(request):
     user = request.user
     personal_details = PersonalDetails.objects.filter(user=user.id).first()
@@ -76,6 +78,7 @@ def update_bank_details(request):
         return redirect('dashboard-home')
 
 @login_required(login_url="login")
+
 def application(request):
     loan_applications = LoanApplication.objects.filter(user=request.user.id).order_by('-created_at')
 
