@@ -29,7 +29,7 @@
             <tbody class="border-spacing-4">
                 {% if offers %}
                 {% for loan in offers %}
-                {% if loan.is_approved %}
+                {% if loan.status == 'approved' %}
                 <tr class=" odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700">
                     <th scope="row" class="px-6 py-4 max-w-48 font-medium  whitespace-nowrap text-white truncate">
                         {{forloop.counter}}. {{loan.reason}}

@@ -12,7 +12,6 @@ from .decorator import check_admin
 # Create your views here.
 @check_admin
 def dashboardBase(request):
-    
     users = User.objects.all()
     loan_applications = LoanApplication.objects.all()
     return render(request,"adminDashboard/dashboard.html",{"users":users, "loan_applications":loan_applications})
@@ -60,6 +59,7 @@ def detail_view(request, id):
         if request.POST.get('approved_amt'):
             loan_application.approved_amt = int(request.POST['approved_amt'])
             loan_application.status = "approved"
+            LoanApplication.is_approved = True
             loan_application.save()
             messages.success(request, "Approved Loan Application")
 
@@ -80,6 +80,7 @@ def detail_view(request, id):
 def reject_application(request, id):
     loan_application = LoanApplication.objects.get(id=id)
     loan_application.status = "rejected"
+    loan_application.is_approved = False
     loan_application.save()
     messages.success(request, "Application Rejected Successfully")
     return redirect('dbb')
