@@ -4,7 +4,6 @@ def check_admin(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated and request.user.is_staff:
-            print("user is admin ")
             return func(request, *args, **kwargs)
         else:
            

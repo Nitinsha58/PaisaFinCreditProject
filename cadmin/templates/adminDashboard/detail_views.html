@@ -1,347 +1,445 @@
 {% extends 'adminDashboard/dashboard_base.html' %}
 {% load static %}
 {% block content %}
+{% load humanize %}
 
 
-        <div class="p-4 bg-white rounded-lg">
-            <form action="nego/{{ loanApplication.id }}" method="post">
-                {% csrf_token %}
-                
-                <div class="flex flex-col gap-4 text-lg">
-                    <div class="flex flex-col gap-2">
-                        <label for="reason">Reason</label>
-                        {{loanApplicationForm.reason}}
-                        {% if loanApplicationForm.reason.errors %}
-                        {% for error in loanApplicationForm.reason.errors %}
-                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                        {% endfor %}
+<div style="z-index: 3" class="relative w-full mb-4 overflow-x-auto sm:mt-0">
+    <div class="relative w-full overflow-x-auto sm:rounded-lg rounded-md">
+        <table class="border-collapse border-spacing-4 w-full text-sm text-left rtl:text-right text-gray-400">
+            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Applied Amount
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Approved Amount
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="border-spacing-4">
+                {% if loan_applications %}
+                {% for loan in loan_applications %}
+                <tr class="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700">
+                    <th scope="row" class="px-6 py-4 max-w-48 font-medium  whitespace-nowraptext-white truncate">
+                        <p data-id="{{loan.id}}" class="loan cursor-pointer" id="create-application">
+                            {{ loan.user.personaldetails.first_name }} {{ loan.user.personaldetails.last_name }}
+                        </p>
+                    </th>
+                    <td class="px-6 py-4 text-nowrap">
+                        {{loan.proposal_amt|intcomma }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if loan.status == 'approved' %}
+                            {{loan.approved_amt|intcomma }}
+                        {% else %}
+                            N/A
                         {% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{loan.created_at|date:"M d, Y"}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if loan.status == 'approved' %}
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">
+                            Approved
+                        </span>
+                        {% elif loan.status == 'rejected' %}
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100">
+                            Rejected
+                        </span>
+                        {% else %}
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-100">
+                            Pending
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-4">No loan applications</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class=" grid grid-cols-1 xl:grid-cols-2 sm:gap-4">
+    <div class="p-4 bg-white rounded-lg">
+        <h2 class="text-3xl font-medium">Personal Details</h2>
+
+        <div class="">
+            <div class="form-container sm:p-4">
+                <form action="" method="POST" class="flex flex-col gap-4">
+                    {% csrf_token %}
+                    {{ personal_form.non_field_errors }}
+                    {{ personal_form.non_field_errors }}
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="first-name">First Name</label>
+                            {{personal_form.first_name}}
+                            {% if personal_form.first_name.errors %}
+                            {% for error in personal_form.first_name.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="last-name">Last Name</label>
+                            {{personal_form.last_name}}
+                            {% if personal_form.last_name.errors %}
+                            {% for error in personal_form.last_name.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="pan-number">PAN Number</label>
+                            {{personal_form.pan_number}}
+                            {% if personal_form.pan_number.errors %}
+                            {% for error in personal_form.pan_number.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="pin-code">Pin Code</label>
+                            {{personal_form.pin_code}}
+                            {% if personal_form.pin_code.errors %}
+                            {% for error in personal_form.pin_code.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="state">State</label>
+                            {{personal_form.state}}
+                            {% if personal_form.state.errors %}
+                            {% for error in personal_form.state.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="city">City</label>
+                            {{personal_form.city}}
+                            {% if personal_form.city.errors %}
+                            {% for error in personal_form.city.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="address">Address</label>
+                            {{personal_form.address}}
+                            {% if personal_form.address.errors %}
+                            {% for error in personal_form.address.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        {% if personal_details.remark %}
+                        <div class="remarks mt-4">
+                            <label for="remarks">Remarks</label>
+                            <p class="text-red-400 font-normal text-sm">{{personal_details.remark}}</p>
+                        </div>
+                        {% endif %}
+
+                        <div class="flex flex-col gap-2">
+                            <label for="remark">Remark</label>
+                            {{personal_form.remark}}
+                            {% if personal_form.remark.errors %}
+                            {% for error in personal_form.remark.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button
+                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                Remark</button>
+                        </div>
                     </div>
 
-                    <div class="flex flex-col gap-2">
-                        <label for="proposal_amt">Proposed Amount</label>
-                        {{loanApplicationForm.proposal_amt}}
-                        {% if loanApplicationForm.proposal_amt.errors %}
-                        {% for error in loanApplicationForm.proposal_amt.errors %}
-                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <label for="approved_amt">Approved Amount</label>
-                        {{loanApplicationForm.approved_amt}}
-                        {% if loanApplicationForm.approved_amt.errors %}
-                        {% for error in loanApplicationForm.approved_amt.errors %}
-                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
-
-                </div>
-               
-                <div class="flex justify-end">
-                    <button type="submit"
-                        class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
-                </div>
-               
-                
-            </form>
+                </form>
+            </div>
         </div>
+    </div>
+    <div class="p-4 bg-white rounded-lg">
+        <h2 class="text-3xl font-medium">Address Details</h2>
+        <div class="">
+            <div class="form-container sm:p-4">
+                <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                    {% csrf_token %}
+                    {{ address_form.non_field_errors }}
+                    {{ address_form.non_field_errors }}
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="current-address">Current Address</label>
+                            {{address_form.current_address}}
+                            {% if address_form.current_address.errors %}
+                            {% for error in address_form.current_address.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="current-address-proof">Current Address Proof</label>
 
-       
-        <div class=" grid grid-cols-1 xl:grid-cols-2 sm:gap-4">
-                <div class="p-4 bg-white rounded-lg">
-                    <h2 class="text-3xl font-medium">Personal Details</h2>
+                            {% if address_details.current_address_proof %}
+                            <a href="{{address_details.current_address_proof.url}}" target="_blank"
+                                class="text-blue-500 mt-4">
+                                <img src="{{ address_details.current_address_proof.url }}" alt="pdf"
+                                    class="max-h-40 w-fit max-w-full">
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="permanent-address">Permanent Address</label>
+                            {{address_form.permanent_address}}
+                            {% if address_form.permanent_address.errors %}
+                            {% for error in address_form.permanent_address.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="permanent-address-proof">Permanent Address Proof</label>
+                            <!-- {{address_form.permanent_address_proof}}
+                                {% if address_form.permanent_address_proof.errors %}
+                                {% for error in address_form.permanent_address_proof.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %} -->
+                            {% if address_details.permanent_address_proof %}
+                            <a href="{{address_details.permanent_address_proof.url}}" target="_blank"
+                                class="text-blue-500 mt-4">
+                                <img src="{{ address_details.permanent_address_proof.url }}" alt="pdf"
+                                    class="max-h-40 w-fit max-w-full">
+                            </a>
+                            {% endif %}
+                        </div>
 
-                    <div class="">
-                        <div class="form-container sm:p-4">
-                            
 
-                        
-                            <form action="personremark/{{ user.id }}/{{ loadForm_id }}" method="POST" class="flex flex-col gap-4">
-                                {% csrf_token %}
-                                {{ personal_form.non_field_errors }}
-                                {{ personal_form.non_field_errors }}
-                                <div class="flex flex-col gap-4">
-                                    <div class="flex flex-col gap-2">
-                                        <label for="first-name">First Name</label>
-                                        {{personal_form.first_name}}
-                                        {% if personal_form.first_name.errors %}
-                                        {% for error in personal_form.first_name.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="last-name">Last Name</label>
-                                        {{personal_form.last_name}}
-                                        {% if personal_form.last_name.errors %}
-                                        {% for error in personal_form.last_name.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="pan-number">PAN Number</label>
-                                        {{personal_form.pan_number}}
-                                        {% if personal_form.pan_number.errors %}
-                                        {% for error in personal_form.pan_number.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="pin-code">Pin Code</label>
-                                        {{personal_form.pin_code}}
-                                        {% if personal_form.pin_code.errors %}
-                                        {% for error in personal_form.pin_code.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="state">State</label>
-                                        {{personal_form.state}}
-                                        {% if personal_form.state.errors %}
-                                        {% for error in personal_form.state.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="city">City</label>
-                                        {{personal_form.city}}
-                                        {% if personal_form.city.errors %}
-                                        {% for error in personal_form.city.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="address">Address</label>
-                                        {{personal_form.address}}
-                                        {% if personal_form.address.errors %}
-                                        {% for error in personal_form.address.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
 
-                                    {% if personal_details.remark %}
-                                        <div class="remarks mt-4">
-                                            <label for="remarks">Remarks</label>
-                                            <p class="text-red-400 font-normal text-sm">{{personal_details.remark}}</p>
-                                        </div>
-                                    {% endif %}
 
-                                    <div class="flex flex-col gap-2">
-                                        <label for="remark">Remark</label>
-                                        {{personal_form.remark}}
-                                        {% if personal_form.remark.errors %}
-                                        {% for error in personal_form.remark.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
+                        {% if address_details.remark %}
+                        <div class="remarks mt-4">
+                            <label for="remarks">Remarks</label>
+                            <p class="text-red-400 font-normal text-sm">{{address_details.remark}}</p>
+                        </div>
+                        {% endif %}
 
-                                    <div class="flex justify-end">
-                                        <button
-                                            class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
-                                    </div>
-                                </div>
-                                
-                            </form>
+                        <div class="flex flex-col gap-2">
+                            <label for="addressRemark">Remark</label>
+                            {{address_form.remark}}
+                            {% if address_form.remark.errors %}
+                            {% for error in address_form.remark.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                Remark</button>
                         </div>
                     </div>
-                </div>
-                <div class="p-4 bg-white rounded-lg">
-                    <h2 class="text-3xl font-medium">Address Details</h2>
-                    <div class="">
-                        <div class="form-container sm:p-4">
-                            <form action="addressremark/{{user.id}}/{{ loadForm_id }}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
-                                {% csrf_token %}
-                                {{ address_form.non_field_errors }}
-                                {{ address_form.non_field_errors }}
-                                <div class="flex flex-col gap-4">
-                                    <div class="flex flex-col gap-2">
-                                        <label for="current-address">Current Address</label>
-                                        {{address_form.current_address}}
-                                        {% if address_form.current_address.errors %}
-                                        {% for error in address_form.current_address.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="current-address-proof">Current Address Proof</label>
-                                        <!-- {{address_form.current_address_proof}}
-                                        {% if address_form.current_address_proof.errors %}
-                                        {% for error in address_form.current_address_proof.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %} -->
 
-                                        {% if address_details.current_address_proof %}
-                                            <a href="{{address_details.current_address_proof.url}}" target="_blank"
-                                                class="text-blue-500 mt-4">
-                                                <img src="{{ address_details.current_address_proof.url }}" alt="pdf" class="max-h-40 w-fit max-w-full">
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="permanent-address">Permanent Address</label>
-                                        {{address_form.permanent_address}}
-                                        {% if address_form.permanent_address.errors %}
-                                        {% for error in address_form.permanent_address.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="permanent-address-proof">Permanent Address Proof</label>
-                                        <!-- {{address_form.permanent_address_proof}}
-                                        {% if address_form.permanent_address_proof.errors %}
-                                        {% for error in address_form.permanent_address_proof.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %} -->
-                                        {% if address_details.permanent_address_proof %}
-                                            <a href="{{address_details.permanent_address_proof.url}}" target="_blank"
-                                                class="text-blue-500 mt-4">
-                                                <img src="{{ address_details.permanent_address_proof.url }}" alt="pdf" class="max-h-40 w-fit max-w-full">
-                                            </a>
-                                        {% endif %}
-                                    </div>
-
-
-
-
-                                    {% if address_details.remark %}
-                                        <div class="remarks mt-4">
-                                            <label for="remarks">Remarks</label>
-                                            <p class="text-red-400 font-normal text-sm">{{address_details.remark}}</p>
-                                        </div>
-                                    {% endif %}
-
-                                    <div class="flex flex-col gap-2">
-                                        <label for="addressRemark">Remark</label>
-                                        {{address_form.remark}}
-                                        {% if address_form.remark.errors %}
-                                        {% for error in address_form.remark.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex justify-end">
-                                        <button
-                                            class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
-                                    </div>
-                                </div>
-                                
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 bg-white rounded-lg">
-                    <h2 class="text-3xl font-medium">Bank Details</h2>
-                    <div class="">
-                        <div class="form-container sm:p-4">
-                            <form action="bankremark/{{user.id}}/{{ loadForm_id }}" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
-                                {% csrf_token %}
-                                {{ bank_form.non_field_errors }}
-                                {{ bank_form.non_field_errors }}
-                                <div class="flex flex-col gap-4">
-                                    <div class="flex flex-col gap-2">
-                                        <label for="account-number">Account Number</label>
-                                        {{bank_form.account_number}}
-                                        {% if bank_form.account_number.errors %}
-                                        {% for error in bank_form.account_number.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="account-holder-name">Account Holder Name</label>
-                                        {{bank_form.account_holder_name}}
-                                        {% if bank_form.account_holder_name.errors %}
-                                        {% for error in bank_form.account_holder_name.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="ifsc-code">IFSC Code</label>
-                                        {{bank_form.ifsc_code}}
-                                        {% if bank_form.ifsc_code.errors %}
-                                        {% for error in bank_form.ifsc_code.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="branch">Branch</label>
-                                        {{bank_form.branch}}
-                                        {% if bank_form.branch.errors %}
-                                        {% for error in bank_form.branch.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="branch">Canceled Check</label>
-                                        {{bank_form.check_image}}
-                                        {% if bank_form.check_image.errors %}
-                                        {% for error in bank_form.check_image.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-
-                                        {% if bank_details.check_image %}
-                                            <a href="{{bank_details.check_image.url}}" target="_blank"
-                                                class="text-blue-500 mt-4">
-                                                <img src="{{ bank_details.check_image.url }}" alt="pdf" class="max-h-40 w-fit max-w-full">
-                                            </a>
-                                        {% endif %}
-                                    </div>
-
-
-                                
-
-
-
-                                    
-
-                                    {% if bank_details.remark %}
-                                        <div class="remarks mt-4">
-                                            <label for="remarks">Remarks</label>
-                                            <p class="text-red-400 font-normal text-sm">{{bank_details.remark}}</p>
-                                        </div>
-                                    {% endif %}
-
-                                    <div class="flex flex-col gap-2">
-                                        <label for="bankRemark">Remark</label>
-                                        {{bank_form.remark}}
-                                        {% if bank_form.remark.errors %}
-                                        {% for error in bank_form.remark.errors %}
-                                        <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-
-                                    <div class="flex justify-end">
-                                        <button 
-                                            class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add Remark</button>
-                                    </div>
-                                </div>
-                                
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                </form>
+            </div>
         </div>
-    
-    
+    </div>
+    <div class="p-4 bg-white rounded-lg">
+        <h2 class="text-3xl font-medium">Bank Details</h2>
+        <div class="">
+            <div class="form-container sm:p-4">
+                <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                    {% csrf_token %}
+                    {{ bank_form.non_field_errors }}
+                    {{ bank_form.non_field_errors }}
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label for="account-number">Account Number</label>
+                            {{bank_form.account_number}}
+                            {% if bank_form.account_number.errors %}
+                            {% for error in bank_form.account_number.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="account-holder-name">Account Holder Name</label>
+                            {{bank_form.account_holder_name}}
+                            {% if bank_form.account_holder_name.errors %}
+                            {% for error in bank_form.account_holder_name.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="ifsc-code">IFSC Code</label>
+                            {{bank_form.ifsc_code}}
+                            {% if bank_form.ifsc_code.errors %}
+                            {% for error in bank_form.ifsc_code.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="branch">Branch</label>
+                            {{bank_form.branch}}
+                            {% if bank_form.branch.errors %}
+                            {% for error in bank_form.branch.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="branch">Canceled Check</label>
+                            {{bank_form.check_image}}
+                            {% if bank_form.check_image.errors %}
+                            {% for error in bank_form.check_image.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
 
- 
+                            {% if bank_details.check_image %}
+                            <a href="{{bank_details.check_image.url}}" target="_blank" class="text-blue-500 mt-4">
+                                <img src="{{ bank_details.check_image.url }}" alt="pdf"
+                                    class="max-h-40 w-fit max-w-full">
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% if bank_details.remark %}
+                        <div class="remarks mt-4">
+                            <label for="remarks">Remarks</label>
+                            <p class="text-red-400 font-normal text-sm">{{bank_details.remark}}</p>
+                        </div>
+                        {% endif %}
+
+                        <div class="flex flex-col gap-2">
+                            <label for="bankRemark">Remark</label>
+                            {{bank_form.remark}}
+                            {% if bank_form.remark.errors %}
+                            {% for error in bank_form.remark.errors %}
+                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button
+                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                Remark</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for loan in loan_applications %}
+<div style="display: none;" id="application-modal-{{loan.id}}"
+    class="absolute flex z-50 justify-center items-center w-full md:inset-0 h-svh max-h-full bg-gray-400 bg-opacity-20">
+    <div class="relative p-4 w-full max-w-xl max-h-full">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="flex flex-col p-4 sm:p-8 gap-4 sm:gap-6">
+                <div class="">
+                    <h3 class="text-xl font-medium text-gray-900">
+                        {{ loan.user.personaldetails.first_name }} {{ loan.user.personaldetails.last_name}} {{loan.id}}
+                    </h3>
+                    <p class="text-xs block text-slate-400">+91 {{loan.user.phone}}</p>
+                </div>
+                <div class="">
+                    <h3 class="text-xl font-medium text-gray-900">Loan Reason</h3>
+                    <p class="text-sm block text-slate-700 max-w-full">{{loan.reason}}</p>
+                </div>
+                <div class="">
+                    <h3 class="text-xl font-medium text-gray-900">Proposal Amount</h3>
+                    <p class="text-sm block text-slate-700">Rs {{loan.proposal_amt|intcomma}}</p>
+                </div>
+
+                <button type="button" data-id="{{loan.id}}" id="close-application-modal"
+                    class="absolute top-4 right-4 close-model text-gray-400 bg-transparent  hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-slate-300">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+
+                <form action="{% url 'details' loan.id %}" class="flex flex-col gap-4 justify-end" method="POST">
+                    {% csrf_token %}
+                    <div class="relative">
+                        {% if loan.approved_amt %}
+                            <input type="number" name="approved_amt" value="{{loan.approved_amt}}" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="proposal_amt" required="">
+                        {% else %}
+                            <input type="number" name="approved_amt" value="{{ loan.proposal_amt }}" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="proposal_amt" required="">
+                        {% endif %}
+
+                        <label for="approved_amt"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Approved
+                            Amount</label>
+                    </div>
+                    <div class="flex gap-4 w-fit">
+                        <button type="submit"
+                            class="text-white w-fit self-end bg-emerald-600 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            Accept</button>
+                        <a href="{% url 'reject-loan' loan.id %}"
+                            class="block text-white w-fit self-end bg-red-600 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Reject</a>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    document.querySelectorAll('th').forEach((th) => {
+        th.addEventListener('click', () => {
+            th.classList.toggle('text-wrap');
+            th.classList.toggle('truncate');
+        });
+    });
+
+    document.querySelectorAll('.loan').forEach((loan) => {
+        loan.addEventListener('click', () => {
+            const id = loan.getAttribute('data-id');
+            const modal = document.querySelector(`#application-modal-${id}`);
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    document.querySelectorAll('.close-model').forEach((close) => {
+        close.addEventListener('click', () => {
+            const id = close.getAttribute('data-id');
+            const modal = document.querySelector(`#application-modal-${id}`);
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+</script>
 {% endblock content %}

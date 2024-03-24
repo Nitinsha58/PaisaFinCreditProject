@@ -14,10 +14,8 @@ from .decorator import check_admin
 def dashboardBase(request):
     
     users = User.objects.all()
-    loanApplications = LoanApplication.objects.all()
-
-    
-    return render(request,"adminDashboard/dashboard.html",{"users":users, "loanApplications":loanApplications})
+    loan_applications = LoanApplication.objects.all()
+    return render(request,"adminDashboard/dashboard.html",{"users":users, "loan_applications":loan_applications})
 
 @check_admin
 def pendingApplications(request):
@@ -37,135 +35,51 @@ def approvedApplication(request):
 
 @check_admin
 def detail_view(request, id):
-    loanApplication = LoanApplication.objects.get(id=id)
-    
-    userid = loanApplication.user
-    user = User.objects.get(id=userid.id)
-    loadForm_id = id 
+    user = LoanApplication.objects.get(id=id).user
+    personal_details = PersonalDetails.objects.filter(user=user).first()
+    address_details = AddressDetails.objects.filter(user=user).first()
+    bank_details = BankDetails.objects.filter(user=user).first()
+    loan_application = LoanApplication.objects.get(id=id)
 
-    print("approved amount = ", loanApplication.approved_amt)
-    personal_details = PersonalDetails.objects.filter(user=userid).first()
-    address_details = AddressDetails.objects.filter(user=userid).first()
-    bank_details = BankDetails.objects.filter(user=userid).first()
-    load_application_details = LoanApplication.objects.get(id=id)
-    
+    if request.method == 'POST':
+        personal_form = PersonalDetailForm(request.POST, instance=personal_details)
+        address_form = AddressDetailForm(request.POST, instance=address_details)
+        bank_form = BankDetailForm(request.POST, instance=bank_details)
+
+        if personal_form.is_valid():
+            personal_form.save()
+            messages.success(request, "Successfully Added Remark for Personal Details")
+        if address_form.is_valid():
+            address_form.save()
+            messages.success(request, "Successfully Added Remark for Address Details")
+        if bank_form.is_valid():
+            bank_form.save()
+            messages.success(request, "Successfully Added Remark for Bank Details")
+        
+        
+        if request.POST.get('approved_amt'):
+            loan_application.approved_amt = int(request.POST['approved_amt'])
+            loan_application.status = "approved"
+            loan_application.save()
+            messages.success(request, "Approved Loan Application")
+
     personal_form = PersonalDetailForm(instance=personal_details)
     address_form = AddressDetailForm(instance=address_details)
     bank_form = BankDetailForm(instance=bank_details)
-    load_application_form = LoanApplicationForm(instance=load_application_details)
 
-    
-   
-    if request.method == 'POST':
-        
-        personal_form = PersonalDetailForm(request.POST)
-        address_form = AddressDetailForm(request.POST)
-        bank_form = BankDetailForm(request.POST)
+    loan_applications = LoanApplication.objects.filter(user=user).order_by('-created_at')
 
-        if personal_form.is_valid() and  address_form.is_valid() and bank_form.is_valid():
-            
-            personal_form.save()
-            address_form.save()
-            bank_form.save()
-        
-
-    
-    return render(request, "adminDashboard/detail_views.html", {'personal_form':personal_form,
-                                                    'address_form':address_form,
-                                                    'bank_form':bank_form,
-                                                    'personal_details':personal_details,
-                                                    'address_details':address_details,
-                                                    'bank_details':bank_details,
-                                                    'user':user,
-                                                    'loanApplication':loanApplication ,
-                                                    'loanApplicationForm':load_application_form,
-                                                    'loadForm_id':loadForm_id})
+    return render(request, "adminDashboard/detail_views.html", {
+                            'loan_applications':loan_applications,
+                            'personal_form':personal_form,
+                            'address_form':address_form,
+                            'bank_form':bank_form,
+                        })
 
 @check_admin
-def loanApplicationNego(request, id):
-    if request.method == "POST":
-        loanApplication = LoanApplication.objects.get(id = id)
-        loanApplication_form = LoanApplicationForm(request.POST)
-        if loanApplication_form.is_valid():
-            approved_amount = loanApplication_form.cleaned_data['approved_amt']
-            loanApplication.approved_amt = approved_amount
-            loanApplication.save()
-            messages.success(request,"Successfully Added")
-
-        else: 
-            
-            messages.error(request,"Error ")
+def reject_application(request, id):
+    loan_application = LoanApplication.objects.get(id=id)
+    loan_application.status = "rejected"
+    loan_application.save()
+    messages.success(request, "Application Rejected Successfully")
     return redirect('dbb')
-
-
-@check_admin
-def personal_remark(request,id,lid):
-    if request.method == "POST":
-        user = User.objects.get(id=id)
-        personal_form = PersonalDetailForm(request.POST)
-        
-        if personal_form.is_valid():
-            personal_details = PersonalDetails.objects.get(user=user)
-            personal_details.remark = personal_form.cleaned_data['remark']
-            personal_details.save()
-            
-            messages.success(request,"Personal Remark Added")
-            return redirect(reverse('cadmin:details', kwargs={'id': lid}))
-
-        else: 
-            
-            messages.error(request,"Error ")
-
-    return redirect('dbb')
-    
-
-@check_admin
-def address_remark(request,id,lid):
-    
-    if request.method == "POST":
-        user = User.objects.get(id=id)
-        address_form = AddressDetailForm(request.POST)
-        
-        
-        if address_form.is_valid():
-            address_details  = AddressDetails.objects.get(user=user)
-            address_details.remark = address_form.cleaned_data['remark']
-            
-            address_details.save()
-            messages.success(request,"address  Remark Added")
-            return redirect(reverse('cadmin:details', kwargs={'id': lid}))
-        else:
-            messages.error(request,"Error ")
-            
-           
-    return redirect('dbb')
-
-    
-
-@check_admin
-def bank_remark(request, id,lid):
-    
-    if request.method =="POST":
-        print("method is post ")
-        user = User.objects.get(id=id)
-        bank_form = BankDetailForm(request.POST)
-
-        if bank_form.is_valid():
-            bank_details= BankDetails.objects.get(user=user)
-            bank_details.remark = bank_form.cleaned_data['remark']
-            bank_details.save()
-            messages.success(request,"bank  Remark Added")
-            return redirect(reverse('cadmin:details', kwargs={'id': lid}))
-        
-    
-    return redirect('dbb')
-    
-            
-
-
-    
-
-
-
-
-
