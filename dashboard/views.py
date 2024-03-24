@@ -103,7 +103,7 @@ def delete_application(request, id):
 
 @login_required(login_url="login")
 def offers(request):
-    offers = LoanApplication.objects.filter(status='approved').order_by('-created_at')
+    offers = LoanApplication.objects.filter(status='approved', is_approved=True).order_by('-created_at')
     context = {
         'offers': offers
     }

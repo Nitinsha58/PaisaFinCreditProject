@@ -18,7 +18,7 @@
             <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Application
+                        Application ({{ loan_applications|length }})
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Date
@@ -39,7 +39,7 @@
                 {% for loan in loan_applications %}
                 <tr class="odd:bg-gray-900 even:bg-gray-800 border-b border-gray-700">
                     <th scope="row" class="px-6 py-4 max-w-48 font-medium  whitespace-nowraptext-white truncate">
-                        {{loan.reason}}
+                        {{forloop.counter}}. {{loan.reason}}
                     </th>
                     <td class="px-6 py-4 text-nowrap">
                         {{loan.created_at|date:"M d, Y"}}
