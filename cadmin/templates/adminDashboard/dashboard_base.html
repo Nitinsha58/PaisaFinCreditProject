@@ -20,8 +20,8 @@
     {% url 'rejectedApplication' as dash_rejected %}
     {% url 'approvedApplication' as dash_approved %}
 
-<div class="flex sm:gap-2 lg:mx-20 xl:mx-24 sm:px-4 min-h-screen">
-    <div id="navLinks"
+<div  class="flex sm:gap-2 lg:mx-20 xl:mx-24 sm:px-4 min-h-screen">
+    <div style="z-index: 10;" id="navLinks"
         class="h-full absolute sm:relative sm:left-0 left-[-100%] w-fit justify-between transition-all duration-50 bg-gray-900 text-white sm:rounded-lg  p-2">
         <ul class="gap-2 w-full">
             <li class="w-full" id="menu">
@@ -84,7 +84,7 @@
             </li>
         </ul>
     </div>
-    <div class=" w-full  rounded-lg">
+    <div style="width: calc(100% - 1rem); z-index: 3;" class="m-2 rounded-lg">
         
         {% block content %}
         {% endblock content %}

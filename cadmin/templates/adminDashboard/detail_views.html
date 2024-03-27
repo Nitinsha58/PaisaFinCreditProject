@@ -45,7 +45,7 @@
                             N/A
                         {% endif %}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 whitespace-nowrap">
                         {{loan.created_at|date:"M d, Y"}}
                     </td>
                     <td class="px-6 py-4">
@@ -78,280 +78,282 @@
     </div>
 </div>
 
-<div class=" grid grid-cols-1 xl:grid-cols-2 sm:gap-4">
-    <div class="p-4 bg-white rounded-lg">
-        <h2 class="text-3xl font-medium">Personal Details</h2>
-
-        <div class="">
-            <div class="form-container sm:p-4">
-                <form action="" method="POST" class="flex flex-col gap-4">
-                    {% csrf_token %}
-                    {{ personal_form.non_field_errors }}
-                    {{ personal_form.non_field_errors }}
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="first-name">First Name</label>
-                            {{personal_form.first_name}}
-                            {% if personal_form.first_name.errors %}
-                            {% for error in personal_form.first_name.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="last-name">Last Name</label>
-                            {{personal_form.last_name}}
-                            {% if personal_form.last_name.errors %}
-                            {% for error in personal_form.last_name.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="pan-number">PAN Number</label>
-                            {{personal_form.pan_number}}
-                            {% if personal_form.pan_number.errors %}
-                            {% for error in personal_form.pan_number.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="pin-code">Pin Code</label>
-                            {{personal_form.pin_code}}
-                            {% if personal_form.pin_code.errors %}
-                            {% for error in personal_form.pin_code.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="state">State</label>
-                            {{personal_form.state}}
-                            {% if personal_form.state.errors %}
-                            {% for error in personal_form.state.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="city">City</label>
-                            {{personal_form.city}}
-                            {% if personal_form.city.errors %}
-                            {% for error in personal_form.city.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="address">Address</label>
-                            {{personal_form.address}}
-                            {% if personal_form.address.errors %}
-                            {% for error in personal_form.address.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-
-                        {% if personal_details.remark %}
-                        <div class="remarks mt-4">
-                            <label for="remarks">Remarks</label>
-                            <p class="text-red-400 font-normal text-sm">{{personal_details.remark}}</p>
-                        </div>
-                        {% endif %}
-
-                        <div class="flex flex-col gap-2">
-                            <label for="remark">Remark</label>
-                            {{personal_form.remark}}
-                            {% if personal_form.remark.errors %}
-                            {% for error in personal_form.remark.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button
-                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
-                                Remark</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="p-4 bg-white rounded-lg">
-        <h2 class="text-3xl font-medium">Address Details</h2>
-        <div class="">
-            <div class="form-container sm:p-4">
-                <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
-                    {% csrf_token %}
-                    {{ address_form.non_field_errors }}
-                    {{ address_form.non_field_errors }}
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="current-address">Current Address</label>
-                            {{address_form.current_address}}
-                            {% if address_form.current_address.errors %}
-                            {% for error in address_form.current_address.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="current-address-proof">Current Address Proof</label>
-
-                            {% if address_details.current_address_proof %}
-                            <a href="{{address_details.current_address_proof.url}}" target="_blank"
-                                class="text-blue-500 mt-4">
-                                <img src="{{ address_details.current_address_proof.url }}" alt="pdf"
-                                    class="max-h-40 w-fit max-w-full">
-                            </a>
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="permanent-address">Permanent Address</label>
-                            {{address_form.permanent_address}}
-                            {% if address_form.permanent_address.errors %}
-                            {% for error in address_form.permanent_address.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="permanent-address-proof">Permanent Address Proof</label>
-                            <!-- {{address_form.permanent_address_proof}}
-                                {% if address_form.permanent_address_proof.errors %}
-                                {% for error in address_form.permanent_address_proof.errors %}
+<div class="relative w-full m-2 overflow-x-auto ">
+    <div class=" grid grid-cols-1 xl:grid-cols-2 sm:gap-4">
+        <div class="p-4 bg-white rounded-lg">
+            <h2 class="text-3xl font-medium">Personal Details</h2>
+    
+            <div class="">
+                <div class="form-container sm:p-4">
+                    <form action="" method="POST" class="flex flex-col gap-4">
+                        {% csrf_token %}
+                        {{ personal_form.non_field_errors }}
+                        {{ personal_form.non_field_errors }}
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="first-name">First Name</label>
+                                {{personal_form.first_name}}
+                                {% if personal_form.first_name.errors %}
+                                {% for error in personal_form.first_name.errors %}
                                 <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
                                 {% endfor %}
-                                {% endif %} -->
-                            {% if address_details.permanent_address_proof %}
-                            <a href="{{address_details.permanent_address_proof.url}}" target="_blank"
-                                class="text-blue-500 mt-4">
-                                <img src="{{ address_details.permanent_address_proof.url }}" alt="pdf"
-                                    class="max-h-40 w-fit max-w-full">
-                            </a>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="last-name">Last Name</label>
+                                {{personal_form.last_name}}
+                                {% if personal_form.last_name.errors %}
+                                {% for error in personal_form.last_name.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="pan-number">PAN Number</label>
+                                {{personal_form.pan_number}}
+                                {% if personal_form.pan_number.errors %}
+                                {% for error in personal_form.pan_number.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="pin-code">Pin Code</label>
+                                {{personal_form.pin_code}}
+                                {% if personal_form.pin_code.errors %}
+                                {% for error in personal_form.pin_code.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="state">State</label>
+                                {{personal_form.state}}
+                                {% if personal_form.state.errors %}
+                                {% for error in personal_form.state.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="city">City</label>
+                                {{personal_form.city}}
+                                {% if personal_form.city.errors %}
+                                {% for error in personal_form.city.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="address">Address</label>
+                                {{personal_form.address}}
+                                {% if personal_form.address.errors %}
+                                {% for error in personal_form.address.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+    
+                            {% if personal_details.remark %}
+                            <div class="remarks mt-4">
+                                <label for="remarks">Remarks</label>
+                                <p class="text-red-400 font-normal text-sm">{{personal_details.remark}}</p>
+                            </div>
                             {% endif %}
+    
+                            <div class="flex flex-col gap-2">
+                                <label for="remark">Remark</label>
+                                {{personal_form.remark}}
+                                {% if personal_form.remark.errors %}
+                                {% for error in personal_form.remark.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+    
+                            <div class="flex justify-end">
+                                <button
+                                    class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                    Remark</button>
+                            </div>
                         </div>
-
-
-
-
-                        {% if address_details.remark %}
-                        <div class="remarks mt-4">
-                            <label for="remarks">Remarks</label>
-                            <p class="text-red-400 font-normal text-sm">{{address_details.remark}}</p>
-                        </div>
-                        {% endif %}
-
-                        <div class="flex flex-col gap-2">
-                            <label for="addressRemark">Remark</label>
-                            {{address_form.remark}}
-                            {% if address_form.remark.errors %}
-                            {% for error in address_form.remark.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex justify-end">
-                            <button
-                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
-                                Remark</button>
-                        </div>
-                    </div>
-
-                </form>
+    
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="p-4 bg-white rounded-lg">
-        <h2 class="text-3xl font-medium">Bank Details</h2>
-        <div class="">
-            <div class="form-container sm:p-4">
-                <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
-                    {% csrf_token %}
-                    {{ bank_form.non_field_errors }}
-                    {{ bank_form.non_field_errors }}
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-col gap-2">
-                            <label for="account-number">Account Number</label>
-                            {{bank_form.account_number}}
-                            {% if bank_form.account_number.errors %}
-                            {% for error in bank_form.account_number.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
+        <div class="p-4 bg-white rounded-lg">
+            <h2 class="text-3xl font-medium">Address Details</h2>
+            <div class="">
+                <div class="form-container sm:p-4">
+                    <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                        {% csrf_token %}
+                        {{ address_form.non_field_errors }}
+                        {{ address_form.non_field_errors }}
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="current-address">Current Address</label>
+                                {{address_form.current_address}}
+                                {% if address_form.current_address.errors %}
+                                {% for error in address_form.current_address.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="current-address-proof">Current Address Proof</label>
+    
+                                {% if address_details.current_address_proof %}
+                                <a href="{{address_details.current_address_proof.url}}" target="_blank"
+                                    class="text-blue-500 mt-4">
+                                    <img src="{{ address_details.current_address_proof.url }}" alt="pdf"
+                                        class="max-h-40 w-fit max-w-full">
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="permanent-address">Permanent Address</label>
+                                {{address_form.permanent_address}}
+                                {% if address_form.permanent_address.errors %}
+                                {% for error in address_form.permanent_address.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="permanent-address-proof">Permanent Address Proof</label>
+                                <!-- {{address_form.permanent_address_proof}}
+                                    {% if address_form.permanent_address_proof.errors %}
+                                    {% for error in address_form.permanent_address_proof.errors %}
+                                    <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                    {% endfor %}
+                                    {% endif %} -->
+                                {% if address_details.permanent_address_proof %}
+                                <a href="{{address_details.permanent_address_proof.url}}" target="_blank"
+                                    class="text-blue-500 mt-4">
+                                    <img src="{{ address_details.permanent_address_proof.url }}" alt="pdf"
+                                        class="max-h-40 w-fit max-w-full">
+                                </a>
+                                {% endif %}
+                            </div>
+    
+    
+    
+    
+                            {% if address_details.remark %}
+                            <div class="remarks mt-4">
+                                <label for="remarks">Remarks</label>
+                                <p class="text-red-400 font-normal text-sm">{{address_details.remark}}</p>
+                            </div>
                             {% endif %}
+    
+                            <div class="flex flex-col gap-2">
+                                <label for="addressRemark">Remark</label>
+                                {{address_form.remark}}
+                                {% if address_form.remark.errors %}
+                                {% for error in address_form.remark.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex justify-end">
+                                <button
+                                    class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                    Remark</button>
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="account-holder-name">Account Holder Name</label>
-                            {{bank_form.account_holder_name}}
-                            {% if bank_form.account_holder_name.errors %}
-                            {% for error in bank_form.account_holder_name.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
+    
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 bg-white rounded-lg">
+            <h2 class="text-3xl font-medium">Bank Details</h2>
+            <div class="">
+                <div class="form-container sm:p-4">
+                    <form action="" method="POST" enctype='multipart/form-data' class="flex flex-col gap-4">
+                        {% csrf_token %}
+                        {{ bank_form.non_field_errors }}
+                        {{ bank_form.non_field_errors }}
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label for="account-number">Account Number</label>
+                                {{bank_form.account_number}}
+                                {% if bank_form.account_number.errors %}
+                                {% for error in bank_form.account_number.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="account-holder-name">Account Holder Name</label>
+                                {{bank_form.account_holder_name}}
+                                {% if bank_form.account_holder_name.errors %}
+                                {% for error in bank_form.account_holder_name.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="ifsc-code">IFSC Code</label>
+                                {{bank_form.ifsc_code}}
+                                {% if bank_form.ifsc_code.errors %}
+                                {% for error in bank_form.ifsc_code.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="branch">Branch</label>
+                                {{bank_form.branch}}
+                                {% if bank_form.branch.errors %}
+                                {% for error in bank_form.branch.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="branch">Canceled Check</label>
+                                {{bank_form.check_image}}
+                                {% if bank_form.check_image.errors %}
+                                {% for error in bank_form.check_image.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+    
+                                {% if bank_details.check_image %}
+                                <a href="{{bank_details.check_image.url}}" target="_blank" class="text-blue-500 mt-4">
+                                    <img src="{{ bank_details.check_image.url }}" alt="pdf"
+                                        class="max-h-40 w-fit max-w-full">
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% if bank_details.remark %}
+                            <div class="remarks mt-4">
+                                <label for="remarks">Remarks</label>
+                                <p class="text-red-400 font-normal text-sm">{{bank_details.remark}}</p>
+                            </div>
                             {% endif %}
+    
+                            <div class="flex flex-col gap-2">
+                                <label for="bankRemark">Remark</label>
+                                {{bank_form.remark}}
+                                {% if bank_form.remark.errors %}
+                                {% for error in bank_form.remark.errors %}
+                                <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+    
+                            <div class="flex justify-end">
+                                <button
+                                    class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
+                                    Remark</button>
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="ifsc-code">IFSC Code</label>
-                            {{bank_form.ifsc_code}}
-                            {% if bank_form.ifsc_code.errors %}
-                            {% for error in bank_form.ifsc_code.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="branch">Branch</label>
-                            {{bank_form.branch}}
-                            {% if bank_form.branch.errors %}
-                            {% for error in bank_form.branch.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="branch">Canceled Check</label>
-                            {{bank_form.check_image}}
-                            {% if bank_form.check_image.errors %}
-                            {% for error in bank_form.check_image.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-
-                            {% if bank_details.check_image %}
-                            <a href="{{bank_details.check_image.url}}" target="_blank" class="text-blue-500 mt-4">
-                                <img src="{{ bank_details.check_image.url }}" alt="pdf"
-                                    class="max-h-40 w-fit max-w-full">
-                            </a>
-                            {% endif %}
-                        </div>
-                        {% if bank_details.remark %}
-                        <div class="remarks mt-4">
-                            <label for="remarks">Remarks</label>
-                            <p class="text-red-400 font-normal text-sm">{{bank_details.remark}}</p>
-                        </div>
-                        {% endif %}
-
-                        <div class="flex flex-col gap-2">
-                            <label for="bankRemark">Remark</label>
-                            {{bank_form.remark}}
-                            {% if bank_form.remark.errors %}
-                            {% for error in bank_form.remark.errors %}
-                            <p class="text-sm text-red-500 ml-2 mt-2">{{ error }}</p>
-                            {% endfor %}
-                            {% endif %}
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button
-                                class="text-white py-2 px-4 bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none">Add
-                                Remark</button>
-                        </div>
-                    </div>
-
-                </form>
+    
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -359,7 +361,7 @@
 
 {% for loan in loan_applications %}
 <div style="display: none;" id="application-modal-{{loan.id}}"
-    class="absolute flex z-50 justify-center items-center w-full md:inset-0 h-svh max-h-full bg-gray-400 bg-opacity-20">
+    class="absolute flex z-50 justify-center items-center w-full inset-0 h-svh max-h-full bg-gray-400 bg-opacity-20">
     <div class="relative p-4 w-full max-w-xl max-h-full">
         <div class="relative bg-white rounded-lg shadow">
             <div class="flex flex-col p-4 sm:p-8 gap-4 sm:gap-6">
