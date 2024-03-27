@@ -103,7 +103,7 @@ def delete_application(request, id):
 
 @login_required(login_url="login")
 def offers(request):
-    offers = LoanApplication.objects.filter(status='approved').order_by('-created_at')
+    offers = LoanApplication.objects.filter(status__in=['approved' , 'closed' , 'cancelled']).order_by('-created_at')
     context = {
         'offers': offers
     }
@@ -149,3 +149,27 @@ def verify_phone(request):
             messages.error(request, "OTP does not match")
 
     return redirect("dashboard-home")
+
+@login_required(login_url="login")
+def accept_offer(request, id):
+    loan_application = LoanApplication.objects.filter(id=id, user=request.user.id).first()
+    if not loan_application:
+        messages.error(request, "Invalid request")
+        return redirect('dashboard-offer')
+    loan_application.status = 'closed'
+    loan_application.is_confirmed = True
+    loan_application.save()
+    messages.success(request, "Congratulations, your loan has been approved")
+    return redirect('dashboard-offer')
+
+
+@login_required(login_url="login")
+def reject_offer(request, id):
+    loan_application = LoanApplication.objects.filter(id=id, user=request.user.id).first()
+    if not loan_application:
+        messages.error(request, "Invalid request")
+        return redirect('dashboard-offer')
+    loan_application.status = 'cancelled'
+    loan_application.is_confirmed = False
+    loan_application.save()
+    return redirect('dashboard-offer')

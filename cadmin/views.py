@@ -84,3 +84,8 @@ def reject_application(request, id):
     loan_application.save()
     messages.success(request, "Application Rejected Successfully")
     return redirect('dbb')
+
+@check_admin
+def confirmed_applications(reqeust):
+    loan_applications = LoanApplication.objects.filter(status="confirmed"   )
+    return render(reqeust, "adminDashboard/confirmed.html", {"loanApplications":loan_applications})
