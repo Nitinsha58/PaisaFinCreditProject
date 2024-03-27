@@ -48,15 +48,15 @@
                         {{loan.proposal_amt|intcomma }}
                     </td>
                     <td class="px-6 py-4">
-                        {% if loan.status == 'approved' %}
+                        {% if loan.status == 'approved' or loan.status == 'closed' %}
                         <span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100">
-                            Approved
+                            {{loan.status}}
                         </span>
-                        {% elif loan.status == 'rejected' %}
+                        {% elif loan.status == 'rejected' or loan.status == 'cancelled' %}
                         <span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100">
-                            Rejected
+                            {{loan.status}}
                         </span>
                         {% else %}
                         <span
