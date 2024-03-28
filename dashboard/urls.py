@@ -8,7 +8,9 @@ from .views import (
     delete_application,
     offers,
     resendOtp,
-    verify_phone
+    verify_phone,
+    accept_offer,
+    reject_offer
     )
 
 
@@ -22,4 +24,6 @@ urlpatterns = [
     path("offers/", offers, name="dashboard-offer"),
     path("verify-phone/", verify_phone, name="verify-phone"),
     path("resend-otp/", resendOtp, name="resend-otp"),
+    path("accept-offer/<int:id>", accept_offer, name="accept-offer"),
+    path("reject-offer/<int:id>", reject_offer, name="reject-offer"),
 ]

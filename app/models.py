@@ -55,6 +55,8 @@ class LoanApplication(models.Model):
         ('pending', 'Pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
+        ('closed', 'Closed'),
+        ('cancelled', 'Cancelled')
     )
 
     id = models.AutoField(primary_key=True)
@@ -63,6 +65,7 @@ class LoanApplication(models.Model):
     proposal_amt = models.IntegerField(null=True)
     approved_amt = models.IntegerField(null=True)
     is_approved = models.BooleanField(default=False, null=True)
+    is_confirmed = models.BooleanField(default=False, null=True)
     status = models.CharField(max_length=30, null=True, choices=USER_STATUS, default='pending')
 
     created_at = models.DateTimeField(auto_now_add=True)

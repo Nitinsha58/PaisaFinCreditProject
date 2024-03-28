@@ -19,6 +19,7 @@ def dashboardBase(request):
 @check_admin
 def pendingApplications(request):
     loanApplications = LoanApplication.objects.filter(status="pending")
+    print(loanApplications)
     return render(request,"adminDashboard/pending.html",{"loanApplications":loanApplications})
 
     
@@ -84,3 +85,8 @@ def reject_application(request, id):
     loan_application.save()
     messages.success(request, "Application Rejected Successfully")
     return redirect('dbb')
+
+@check_admin
+def confirmed_applications(reqeust):
+    loan_applications = LoanApplication.objects.filter(status="closed")
+    return render(reqeust, "adminDashboard/confirmed.html", {"loanApplications":loan_applications})
